@@ -1,0 +1,11 @@
+meta {
+  name: getPayrollCaseValueCount
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/cases/values/count
+  body: none
+  auth: none
+}

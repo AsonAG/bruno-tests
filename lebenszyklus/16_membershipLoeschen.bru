@@ -1,0 +1,11 @@
+meta {
+  name: 16_membershipLoeschen
+  type: http
+  seq: 16
+}
+
+delete {
+  url: {{baseURL}}tenants/{{tenantId}}/user_memberships/{{neuMembershipId}}
+  body: none
+  auth: none
+}

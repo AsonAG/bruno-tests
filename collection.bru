@@ -1,0 +1,104 @@
+auth {
+  mode: none
+}
+
+script:pre-request {
+  // Loest die Ids einmal pro Lauf vom Server auf. Steuerung ueber die Umgebung:
+  //   baseURL            Adresse der API
+  //   tenantIdentifier   Mandant, gegen den geprueft wird
+  
+  if (bru.getVar("__idsAufgeloest")) {
+    return;
+  }
+  bru.setVar("__idsAufgeloest", true);
+  bru.setVar("lauf", String(Date.now()));
+  
+  const axios = require("axios");
+  // localhost nutzt ein selbst signiertes Zertifikat
+  let agent = null;
+  try {
+    const https = require("https");
+    agent = new https.Agent({ rejectUnauthorized: false });
+  } catch (e) {
+    console.log("https-Modul fehlt - bitte mit --sandbox developer starten");
+  }
+  
+  const basis = (bru.getEnvVar("baseURL") || "https://localhost:44354/api/").replace(/\/+$/, "");
+  const mandant = bru.getEnvVar("tenantIdentifier") || "Muster";
+  
+  async function hole(pfad) {
+    try {
+      const cfg = { timeout: 180000 };
+      if (agent) cfg.httpsAgent = agent;
+      const d = (await axios.get(basis + "/" + pfad, cfg)).data;
+      if (!d) return [];
+      if (Array.isArray(d)) return d;
+      if (Array.isArray(d.items)) return d.items;
+      return [d];
+    } catch (e) {
+      const code = e && e.response ? e.response.status : 0;
+      if (code !== 404) {
+        console.log("konnte " + pfad + " nicht lesen: " + (e && e.message ? e.message : String(e)));
+      }
+      return [];
+    }
+  }
+  
+  async function ersteId(pfad) {
+    const l = await hole(pfad);
+    return l.length && l[0].id ? l[0].id : null;
+  }
+  
+  function setze(name, wert) {
+    if (wert) bru.setVar(name, wert);
+  }
+  
+  // Ein zuvor angelegter Mandant hat Vorrang - so arbeiten alle Ordner
+  // nach einem post-Lauf auf dem neuen Mandanten weiter.
+  const leer = "00000000-0000-0000-0000-000000000000";
+  const vorhanden = bru.getEnvVar("neuTenantId");
+  let tid = null;
+  if (vorhanden && vorhanden !== leer && (await hole("tenants/" + vorhanden)).length) {
+    tid = vorhanden;
+    console.log("Arbeite auf dem angelegten Mandanten " + tid);
+  } else {
+    const mandanten = await hole("tenants");
+    const t = mandanten.find(x => x.identifier === mandant) || mandanten[0];
+    if (!t) {
+      console.log("Kein Mandant gefunden - laeuft der Server unter " + basis + " ?");
+      return;
+    }
+    tid = t.id;
+  }
+  setze("tenantId", tid);
+  
+  setze("payrollId", await ersteId(`tenants/${tid}/payrolls?top=1`));
+  setze("divisionId", await ersteId(`tenants/${tid}/divisions?top=1`));
+  setze("employeeId", await ersteId(`tenants/${tid}/employees?top=1`));
+  setze("userId", await ersteId("users?top=1"));
+  setze("webhookId", await ersteId(`tenants/${tid}/webhooks?top=1`));
+  setze("taskId", await ersteId(`tenants/${tid}/tasks?top=1`));
+  
+  const payrollId = bru.getVar("payrollId");
+  if (payrollId) {
+    setze("payrunPeriodId", await ersteId(`tenants/${tid}/payrolls/${payrollId}/payrunperiods?top=1`));
+    setze("reportId", await ersteId(`tenants/${tid}/payrolls/${payrollId}/reports?top=1`));
+  }
+  
+  // Case-Werte: jeder Bereich braucht seinen eigenen
+  const firmenWerte = await hole(`tenants/${tid}/companycases/changes/values?top=1`);
+  if (firmenWerte.length) {
+    setze("companyCaseChangeId", firmenWerte[0].caseChangeId);
+    setze("caseValueId", firmenWerte[0].id);
+  }
+  const employeeId = bru.getVar("employeeId");
+  if (employeeId) {
+    const mitarbeiterWerte = await hole(`tenants/${tid}/employees/${employeeId}/cases/changes/values?top=1`);
+    if (mitarbeiterWerte.length) {
+      setze("EmployeeCaseChangeId", mitarbeiterWerte[0].caseChangeId);
+      setze("employeeCaseValue", mitarbeiterWerte[0].id);
+    }
+  }
+  
+  console.log("Ids aufgeloest fuer Mandant " + tid);
+}

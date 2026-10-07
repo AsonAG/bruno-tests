@@ -1,0 +1,11 @@
+meta {
+  name: getEmployeeCaseValue
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/employees/{{employeeId}}/cases/{{employeeCaseValue}}
+  body: none
+  auth: none
+}

@@ -1,0 +1,22 @@
+meta {
+  name: 14_membershipAendern
+  type: http
+  seq: 14
+}
+
+put {
+  url: {{baseURL}}tenants/{{tenantId}}/user_memberships/{{neuMembershipId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": "{{neuMembershipId}}",
+    "tenantId": "{{tenantId}}",
+    "userId": "{{neuUserId}}",
+    "firstName": "BruGeaendert",
+    "lastName": "Test",
+    "role": { "$type": "Admin" }
+  }
+}

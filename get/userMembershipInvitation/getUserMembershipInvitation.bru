@@ -1,0 +1,11 @@
+meta {
+  name: getUserMembershipInvitation
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseURL}}user_membership_invitations/{{invitationId}}
+  body: none
+  auth: none
+}

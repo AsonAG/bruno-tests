@@ -1,0 +1,11 @@
+meta {
+  name: queryUserMembershipInvitations
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/user_memberships/invitations
+  body: none
+  auth: none
+}

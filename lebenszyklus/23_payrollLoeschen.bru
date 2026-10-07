@@ -1,0 +1,11 @@
+meta {
+  name: 23_payrollLoeschen
+  type: http
+  seq: 23
+}
+
+delete {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}
+  body: none
+  auth: none
+}

@@ -1,0 +1,15 @@
+meta {
+  name: executeQuery
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseURL}}tenants/{{tenantId}}/query
+  body: json
+  auth: none
+}
+
+body:json {
+  {}
+}

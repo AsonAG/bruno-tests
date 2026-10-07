@@ -1,0 +1,15 @@
+meta {
+  name: cancelPayout
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}/payrunperiods/{{payrunPeriodId}}/payouts/{{payoutId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {}
+}

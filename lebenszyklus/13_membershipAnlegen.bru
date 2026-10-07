@@ -1,0 +1,28 @@
+meta {
+  name: 13_membershipAnlegen
+  type: http
+  seq: 13
+}
+
+post {
+  url: {{baseURL}}tenants/{{tenantId}}/user_memberships
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "tenantId": "{{tenantId}}",
+    "userId": "{{neuUserId}}",
+    "firstName": "Bru",
+    "lastName": "Test",
+    "role": { "$type": "Admin" }
+  }
+}
+
+script:post-response {
+  if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
+    bru.setVar("neuMembershipId", res.getBody().id);
+    console.log("neuMembershipId = " + res.getBody().id);
+  }
+}

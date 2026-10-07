@@ -1,0 +1,11 @@
+meta {
+  name: 22_payrollLayerLoeschen
+  type: http
+  seq: 22
+}
+
+delete {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}/layers/{{neuLayerId}}
+  body: none
+  auth: none
+}

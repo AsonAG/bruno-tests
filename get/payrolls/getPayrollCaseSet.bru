@@ -1,0 +1,20 @@
+meta {
+  name: getPayrollCaseSet
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/cases/sets
+  body: none
+  auth: none
+}
+
+query {
+  employeeId: 
+  caseNames: 
+  clusterSetName: 
+  evaluationDate: 
+  language: 
+  regulationDate: 
+}

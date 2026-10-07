@@ -1,0 +1,11 @@
+meta {
+  name: 24_divisionLoeschen
+  type: http
+  seq: 24
+}
+
+delete {
+  url: {{baseURL}}tenants/{{tenantId}}/divisions/{{neuDivisionId}}
+  body: none
+  auth: none
+}

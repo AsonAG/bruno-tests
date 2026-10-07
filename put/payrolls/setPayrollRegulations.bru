@@ -1,0 +1,21 @@
+meta {
+  name: setPayrollRegulations
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}/regulations
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "countryRegulation": "CH.Swissdec",
+    "industries": [],
+    "erp": [],
+    "accountingDocument": null,
+    "accountingData": null
+  }
+}

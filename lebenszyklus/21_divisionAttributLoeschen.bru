@@ -1,0 +1,11 @@
+meta {
+  name: 21_divisionAttributLoeschen
+  type: http
+  seq: 21
+}
+
+delete {
+  url: {{baseURL}}tenants/{{tenantId}}/divisions/{{neuDivisionId}}/attributes/{{attributeName}}
+  body: none
+  auth: none
+}

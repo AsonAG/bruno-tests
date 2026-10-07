@@ -1,0 +1,11 @@
+meta {
+  name: 20_taskLoeschen
+  type: http
+  seq: 20
+}
+
+delete {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}/tasks/{{neuTaskId}}
+  body: none
+  auth: none
+}

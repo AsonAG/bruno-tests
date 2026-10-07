@@ -1,0 +1,11 @@
+meta {
+  name: getEmployeeCaseDocument
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/employees/{{employeeId}}/cases/{{employeeCaseValue}}/documents/{{employeeCaseDocumentId}}
+  body: none
+  auth: none
+}

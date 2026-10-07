@@ -1,0 +1,22 @@
+meta {
+  name: 12_userAendern
+  type: http
+  seq: 12
+}
+
+put {
+  url: {{baseURL}}users/{{neuUserId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": "{{neuUserId}}",
+    "identifier": "brutest-{{lauf}}@example.org",
+    "firstName": "BruGeaendert",
+    "lastName": "Test",
+    "culture": "de-CH",
+    "language": "German"
+  }
+}

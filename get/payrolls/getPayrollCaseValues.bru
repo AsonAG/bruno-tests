@@ -1,0 +1,18 @@
+meta {
+  name: getPayrollCaseValues
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/cases/values?caseFieldNames={{caseFieldName}}&startDate=2020-01-01T00:00:00Z&endDate=2026-12-31T00:00:00Z
+  body: none
+  auth: none
+}
+
+query {
+  employeeId: 
+  caseFieldNames: 
+  endDate: 
+  startDate: 
+}

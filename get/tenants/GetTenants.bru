@@ -1,0 +1,21 @@
+meta {
+  name: getTenants
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseURL}}tenants?result=Items&status=Active&orderBy=created&select=identifier&top=2
+  body: none
+  auth: none
+}
+
+query {
+  result: Items
+  status: Active
+  orderBy: created
+  select: identifier
+  skip: 
+  top: 2
+  ~filter: identifier eq 'FranGroup'
+}

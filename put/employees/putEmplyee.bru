@@ -1,0 +1,23 @@
+meta {
+  name: putEmplyee
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseURL}}tenants/{{tenantId}}/employees/{{neuEmployeeId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": "{{neuEmployeeId}}",
+    "identifier": "brutest-{{lauf}}@example.org",
+    "firstName": "BruGeaendert",
+    "lastName": "Test",
+    "language": "German",
+    "divisions": ["{{neuDivisionId}}"],
+    "culture": "de-CH"
+  }
+}

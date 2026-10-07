@@ -1,0 +1,18 @@
+meta {
+  name: inviteUser
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseURL}}tenants/{{tenantId}}/user_memberships/invite
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "brutest-{{lauf}}@example.org",
+    "role": "Employee"
+  }
+}

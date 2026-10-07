@@ -1,0 +1,28 @@
+meta {
+  name: 11_userAnlegen
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{baseURL}}users
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "identifier": "brutest-{{lauf}}@example.org",
+    "firstName": "Bru",
+    "lastName": "Test",
+    "culture": "de-CH",
+    "language": "German"
+  }
+}
+
+script:post-response {
+  if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
+    bru.setVar("neuUserId", res.getBody().id);
+    console.log("neuUserId = " + res.getBody().id);
+  }
+}

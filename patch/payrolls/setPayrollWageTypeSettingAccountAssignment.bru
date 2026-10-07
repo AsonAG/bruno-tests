@@ -1,0 +1,18 @@
+meta {
+  name: setPayrollWageTypeSettingAccountAssignment
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}/wagetypemaster/settings
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "accountAssignments": {},
+    "payrollControlling": {}
+  }
+}

@@ -1,0 +1,18 @@
+meta {
+  name: putTenant
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseURL}}tenants/{{tenantId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "identifier": "{{tenantIdentifier}}",
+    "culture": "de-CH"
+  }
+}

@@ -1,0 +1,11 @@
+meta {
+  name: 17_userLoeschen
+  type: http
+  seq: 17
+}
+
+delete {
+  url: {{baseURL}}users/{{neuUserId}}
+  body: none
+  auth: none
+}

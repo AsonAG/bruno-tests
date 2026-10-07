@@ -1,0 +1,25 @@
+meta {
+  name: getCompanyCaseValues
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/companycases?divisionId={{divisionId}}&caseFieldName={{caseFieldName}}&caseName=CH.Swissdec.CompanyAddressName&divisionScope=Local&filter=caseFieldName eq 'CH.Swissdec.CompanyAhvBranchNumber'&orderBy=valueType&result=Items&skip=1&status=Active&top=2&select=caseName
+  body: none
+  auth: none
+}
+
+query {
+  divisionId: {{divisionId}}
+  caseFieldName: {{caseFieldName}}
+  caseName: CH.Swissdec.CompanyAddressName
+  divisionScope: Local
+  filter: caseFieldName eq 'CH.Swissdec.CompanyAhvBranchNumber'
+  orderBy: valueType
+  result: Items
+  skip: 1
+  status: Active
+  top: 2
+  select: caseName
+}

@@ -1,0 +1,11 @@
+meta {
+  name: getPayrollWageTypeMaster
+  type: http
+  seq: 18
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/wagetypemaster
+  body: none
+  auth: none
+}

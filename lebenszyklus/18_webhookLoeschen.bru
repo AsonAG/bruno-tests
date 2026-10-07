@@ -1,0 +1,11 @@
+meta {
+  name: 18_webhookLoeschen
+  type: http
+  seq: 18
+}
+
+delete {
+  url: {{baseURL}}tenants/{{tenantId}}/webhooks/{{neuWebhookId}}
+  body: none
+  auth: none
+}

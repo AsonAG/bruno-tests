@@ -1,0 +1,11 @@
+meta {
+  name: getPayout
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/payrunperiods/{{payrunPeriodId}}/payouts
+  body: none
+  auth: none
+}

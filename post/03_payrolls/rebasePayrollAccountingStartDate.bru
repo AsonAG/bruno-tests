@@ -1,0 +1,15 @@
+meta {
+  name: rebasePayrollAccountingStartDate
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}:rebaseAccountingStartDate
+  body: json
+  auth: none
+}
+
+body:json {
+  {}
+}

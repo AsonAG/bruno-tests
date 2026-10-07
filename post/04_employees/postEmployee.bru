@@ -1,0 +1,29 @@
+meta {
+  name: postEmployee
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseURL}}tenants/{{tenantId}}/employees
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "identifier": "brutest-{{lauf}}@example.org",
+    "firstName": "Bru",
+    "lastName": "Test",
+    "language": "German",
+    "divisions": ["{{neuDivisionId}}"],
+    "culture": "de-CH"
+  }
+}
+
+script:post-response {
+  if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
+    bru.setEnvVar("neuEmployeeId", res.getBody().id);
+    console.log("neuEmployeeId = " + res.getBody().id);
+  }
+}

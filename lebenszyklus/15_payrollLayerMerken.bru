@@ -1,0 +1,19 @@
+meta {
+  name: 15_payrollLayerMerken
+  type: http
+  seq: 15
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}/layers
+  body: none
+  auth: none
+}
+
+script:post-response {
+  const l = res.getBody() && res.getBody().items ? res.getBody().items : res.getBody();
+  if (l && l.length && l[0].id) {
+    bru.setVar("neuLayerId", l[0].id);
+    console.log("neuLayerId = " + l[0].id);
+  }
+}

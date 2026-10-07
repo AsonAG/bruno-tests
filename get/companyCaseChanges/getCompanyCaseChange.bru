@@ -1,0 +1,11 @@
+meta {
+  name: getCompanyCaseChange
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/companycases/changes/{{companyCaseChangeId}}
+  body: none
+  auth: none
+}

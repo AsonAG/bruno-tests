@@ -1,0 +1,15 @@
+meta {
+  name: buildPayrollCaseSet
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}/cases/sets/{{caseName}}?caseName={{caseName}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {}
+}

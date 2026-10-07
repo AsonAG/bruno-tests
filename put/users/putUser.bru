@@ -1,0 +1,22 @@
+meta {
+  name: putUser
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseURL}}users/{{neuUserId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": "{{neuUserId}}",
+    "identifier": "brutest-{{lauf}}@example.org",
+    "firstName": "BruGeaendert",
+    "lastName": "Test",
+    "culture": "de-CH",
+    "language": "German"
+  }
+}

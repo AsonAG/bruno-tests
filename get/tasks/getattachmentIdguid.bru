@@ -1,0 +1,11 @@
+meta {
+  name: getattachmentIdguid
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/tasks/{{taskId}}/attachments/{{attachmentId}}
+  body: none
+  auth: none
+}

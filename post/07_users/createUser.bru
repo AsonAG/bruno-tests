@@ -1,0 +1,21 @@
+meta {
+  name: createUser
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseURL}}users
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "identifier": "brutest-{{lauf}}@example.org",
+    "firstName": "Bru",
+    "lastName": "Test",
+    "culture": "de-CH",
+    "language": "German"
+  }
+}

@@ -1,0 +1,27 @@
+meta {
+  name: 06_taskAnlegen
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}/tasks
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "BruTest-{{lauf}}",
+    "category": "Test",
+    "instruction": "Von der Bruno-Sammlung angelegt",
+    "scheduled": "2026-01-01T00:00:00Z"
+  }
+}
+
+script:post-response {
+  if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
+    bru.setVar("neuTaskId", res.getBody().id);
+    console.log("neuTaskId = " + res.getBody().id);
+  }
+}

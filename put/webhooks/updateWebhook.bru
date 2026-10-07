@@ -1,0 +1,20 @@
+meta {
+  name: updateWebhook
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseURL}}tenants/{{tenantId}}/webhooks/{{neuWebhookId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": "{{neuWebhookId}}",
+    "payloadUrl": "https://example.org/bruno-test-geaendert",
+    "events": [],
+    "hasSecret": false
+  }
+}
