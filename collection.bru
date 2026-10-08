@@ -77,11 +77,11 @@ script:pre-request {
   setze("employeeId", await ersteId(`tenants/${tid}/employees?top=1`));
   setze("userId", await ersteId("users?top=1"));
   setze("webhookId", await ersteId(`tenants/${tid}/webhooks?top=1`));
-  setze("taskId", await ersteId(`tenants/${tid}/tasks?top=1`));
   
   const payrollId = bru.getVar("payrollId");
   if (payrollId) {
     setze("payrunPeriodId", await ersteId(`tenants/${tid}/payrolls/${payrollId}/payrunperiods?top=1`));
+    setze("taskId", await ersteId(`tenants/${tid}/payrolls/${payrollId}/tasks?top=1`));
     setze("reportId", await ersteId(`tenants/${tid}/payrolls/${payrollId}/reports?top=1`));
   }
   
