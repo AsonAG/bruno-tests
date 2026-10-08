@@ -7,11 +7,14 @@ script:pre-request {
   //   baseURL            Adresse der API
   //   tenantIdentifier   Mandant, gegen den geprueft wird
   
+  // Die Sperre wird erst GESETZT, wenn alles aufgeloest ist. Sonst sieht ein
+  // parallel gestarteter Request sie bereits und arbeitet mit leeren Ids.
   if (bru.getVar("__idsAufgeloest")) {
     return;
   }
-  bru.setVar("__idsAufgeloest", true);
-  bru.setVar("lauf", String(Date.now()));
+  if (!bru.getVar("lauf")) {
+    bru.setVar("lauf", String(Date.now()));
+  }
   
   const axios = require("axios");
   // localhost nutzt ein selbst signiertes Zertifikat
@@ -110,5 +113,6 @@ script:pre-request {
     }
   }
   
+  bru.setVar("__idsAufgeloest", true);
   console.log("Ids aufgeloest fuer Mandant " + tid);
 }
