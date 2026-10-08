@@ -82,6 +82,16 @@ script:pre-request {
   if (payrollId) {
     setze("payrunPeriodId", await ersteId(`tenants/${tid}/payrolls/${payrollId}/payrunperiods?top=1`));
     setze("taskId", await ersteId(`tenants/${tid}/payrolls/${payrollId}/tasks?top=1`));
+    const periode = bru.getVar("payrunPeriodId");
+    if (periode) {
+      const basisPer = `tenants/${tid}/payrolls/${payrollId}/payrunperiods/${periode}`;
+      setze("payoutId", await ersteId(`${basisPer}/payouts?top=1`));
+      setze("documentId", await ersteId(`${basisPer}/documents?top=1`));
+      const eintraege = await hole(`${basisPer}/entries?top=1`);
+      if (eintraege.length && eintraege[0].id) {
+        setze("payrunPeriodEntryId", eintraege[0].id);
+      }
+    }
     setze("reportId", await ersteId(`tenants/${tid}/payrolls/${payrollId}/reports?top=1`));
   }
   

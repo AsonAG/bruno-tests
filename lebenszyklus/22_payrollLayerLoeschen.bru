@@ -4,8 +4,30 @@ meta {
   seq: 22
 }
 
-delete {
-  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}/layers/{{neuLayerId}}
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}/layers
   body: none
   auth: none
+}
+
+script:post-response {
+  // Alle Layer der Payroll entfernen - sonst scheitert das Loeschen der Payroll
+  // am Fremdschluessel. Eine einzelne Id reicht nicht, es koennen mehrere sein.
+  const axios = require("axios");
+  const https = require("https");
+  const agent = new https.Agent({ rejectUnauthorized: false });
+  const basis = (bru.getEnvVar("baseURL") || "").replace(/\/+$/, "");
+  const pfad = basis + "/tenants/" + bru.getVar("tenantId")
+             + "/payrolls/" + bru.getVar("neuPayrollId") + "/layers";
+
+  const d = res.getBody();
+  const layer = d && d.items ? d.items : (Array.isArray(d) ? d : []);
+  for (const l of layer) {
+    try {
+      await axios.delete(pfad + "/" + l.id, { httpsAgent: agent, timeout: 180000 });
+      console.log("Layer entfernt: " + l.id);
+    } catch (e) {
+      console.log("Layer nicht entfernbar: " + l.id + " - " + e.message);
+    }
+  }
 }
