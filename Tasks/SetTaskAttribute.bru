@@ -1,0 +1,19 @@
+meta {
+  name: SetTaskAttribute
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/tasks/{{neuTaskId}}/attributes/{{attributeName}}
+  body: text
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:text {
+  "123"
+}

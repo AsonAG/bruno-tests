@@ -1,0 +1,11 @@
+meta {
+  name: GetCompanyMissingData
+  type: http
+  seq: 26
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/missingdata
+  body: none
+  auth: none
+}

@@ -1,0 +1,11 @@
+meta {
+  name: GetTaskAttachment
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/tasks/{{taskId}}/attachments/{{attachmentId}}
+  body: none
+  auth: none
+}

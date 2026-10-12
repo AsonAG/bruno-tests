@@ -1,0 +1,11 @@
+meta {
+  name: GetTask
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/tasks/{{taskId}}
+  body: none
+  auth: none
+}

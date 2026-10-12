@@ -1,0 +1,17 @@
+meta {
+  name: RebasePayrollAccountingStartDate
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}:rebaseAccountingStartDate
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "accountingStartDate": "2026-01-01T00:00:00Z"
+  }
+}

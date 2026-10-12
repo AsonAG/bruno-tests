@@ -1,0 +1,26 @@
+meta {
+  name: CreateWebhook
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseURL}}tenants/{{tenantId}}/webhooks
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "payloadUrl": "https://example.org/bruno-test",
+    "events": [],
+    "hasSecret": false
+  }
+}
+
+script:post-response {
+  if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
+    bru.setEnvVar("neuWebhookId", res.getBody().id);
+    console.log("neuWebhookId = " + res.getBody().id);
+  }
+}

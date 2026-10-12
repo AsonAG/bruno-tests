@@ -1,0 +1,11 @@
+meta {
+  name: GetEmployee
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/employees/{{employeeId}}
+  body: none
+  auth: none
+}

@@ -1,0 +1,11 @@
+meta {
+  name: RemoveUserMembership
+  type: http
+  seq: 9
+}
+
+delete {
+  url: {{baseURL}}tenants/{{tenantId}}/user_memberships/{{neuMembershipId}}
+  body: none
+  auth: none
+}

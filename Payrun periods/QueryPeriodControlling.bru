@@ -1,0 +1,11 @@
+meta {
+  name: QueryPeriodControlling
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/payrunperiods/open/controlling
+  body: none
+  auth: none
+}

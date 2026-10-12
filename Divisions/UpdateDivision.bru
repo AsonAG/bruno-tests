@@ -1,0 +1,20 @@
+meta {
+  name: UpdateDivision
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{baseURL}}tenants/{{tenantId}}/divisions/{{neuDivisionId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": "{{neuDivisionId}}",
+    "name": "BruTest-{{lauf}}-geaendert",
+    "culture": "de-CH",
+    "attributes": { "{{attributeName}}": "123" }
+  }
+}

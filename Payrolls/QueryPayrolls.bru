@@ -1,0 +1,21 @@
+meta {
+  name: QueryPayrolls
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls?result=Items&status=Active&orderBy=name&select=name&filter=calendarCalculationMode eq 'MonthCalendarDay'&top=2
+  body: none
+  auth: none
+}
+
+query {
+  result: Items
+  status: Active
+  orderBy: name
+  select: name
+  filter: calendarCalculationMode eq 'MonthCalendarDay'
+  skip: 
+  top: 2
+}

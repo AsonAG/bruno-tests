@@ -1,0 +1,41 @@
+meta {
+  name: CopyWageType
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseURL}}v2/tenants/{{tenantId}}/payrolls/{{neuPayrollId}}/wagetypes?copyFromWageTypeNumber={{kopierbareLohnart}}
+  body: json
+  auth: none
+}
+
+query {
+  copyFromWageTypeNumber: {{kopierbareLohnart}}
+}
+
+body:json {
+  {
+    "en": "Bru copy",
+    "de": "Bru Kopie",
+    "fr": "Copie Bru",
+    "it": "Copia Bru"
+  }
+}
+
+script:pre-request {
+  // kopieren geht nur bei Lohnarten mit isCopyable
+  const axios = require("axios");
+  const https = require("https");
+  const agent = new https.Agent({ rejectUnauthorized: false });
+  const basis = (bru.getEnvVar("baseURL") || "").replace(/\/+$/, "");
+  bru.setVar("kopierbareLohnart", 1000);
+  try {
+    const r = await axios.get(basis + "/v2/tenants/" + bru.getVar("tenantId") +
+      "/payrolls/" + bru.getEnvVar("neuPayrollId") + "/wagetypes",
+      { httpsAgent: agent, timeout: 60000 });
+    const k = (r.data || []).find(x => x.isCopyable);
+    if (k) { bru.setVar("kopierbareLohnart", k.wageTypeNumber); }
+    else { console.log("keine kopierbare Lohnart vorhanden"); }
+  } catch (e) { console.log("Lohnarten nicht lesbar: " + e.message); }
+}

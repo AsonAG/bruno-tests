@@ -1,0 +1,11 @@
+meta {
+  name: DeletePayroll
+  type: http
+  seq: 34
+}
+
+delete {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}
+  body: none
+  auth: none
+}

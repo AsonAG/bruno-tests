@@ -1,0 +1,11 @@
+meta {
+  name: GetPayrollWageTypeSettingAccountAssignment
+  type: http
+  seq: 21
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/wagetypemaster/settings
+  body: none
+  auth: none
+}

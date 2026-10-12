@@ -1,0 +1,11 @@
+meta {
+  name: DeleteCompanyCaseChange
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseURL}}tenants/{{tenantId}}/companycases/changes/{{neuCompanyCaseChangeId}}
+  body: none
+  auth: none
+}

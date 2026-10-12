@@ -1,0 +1,22 @@
+meta {
+  name: QueryEmployees
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/employees?divisionId={{divisionId}}&filter=firstName eq 'Emira'&orderBy=firstName&result=Items&status=Active&top=3
+  body: none
+  auth: none
+}
+
+query {
+  divisionId: {{divisionId}}
+  filter: firstName eq 'Emira'
+  orderBy: firstName
+  result: Items
+  status: Active
+  top: 3
+  select: 
+  ~skip: 1
+}

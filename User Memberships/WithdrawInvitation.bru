@@ -1,0 +1,11 @@
+meta {
+  name: WithdrawInvitation
+  type: http
+  seq: 8
+}
+
+delete {
+  url: {{baseURL}}tenants/{{tenantId}}/user_memberships/invitations/{{invitationId}}
+  body: none
+  auth: none
+}

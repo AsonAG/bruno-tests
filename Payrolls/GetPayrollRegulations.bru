@@ -1,0 +1,11 @@
+meta {
+  name: GetPayrollRegulations
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/regulations
+  body: none
+  auth: none
+}

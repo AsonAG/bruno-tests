@@ -1,0 +1,18 @@
+meta {
+  name: GetPayrollLookups
+  type: http
+  seq: 22
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/lookups
+  body: none
+  auth: none
+}
+
+query {
+  evaluationDate: 
+  lookupNames: 
+  overrideType: 
+  regulationDate: 
+}

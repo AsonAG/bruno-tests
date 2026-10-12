@@ -1,0 +1,19 @@
+meta {
+  name: GenerateReport
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/reports/{{reportId}}/generate
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "language": "German",
+    "payrollId": "{{payrollId}}",
+    "parameters": {}
+  }
+}

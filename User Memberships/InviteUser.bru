@@ -1,0 +1,26 @@
+meta {
+  name: InviteUser
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseURL}}tenants/{{tenantId}}/user_memberships/invite
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "bruinvite-{{lauf}}@example.org",
+    "role": { "$type": "Admin" }
+  }
+}
+
+script:post-response {
+  const b = res.getBody();
+  if (res.getStatus() < 300 && b && b.id) {
+    bru.setEnvVar("invitationId", b.id);
+    console.log("invitationId = " + b.id);
+  }
+}

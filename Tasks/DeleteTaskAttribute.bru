@@ -1,0 +1,11 @@
+meta {
+  name: DeleteTaskAttribute
+  type: http
+  seq: 9
+}
+
+delete {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/tasks/{{neuTaskId}}/attributes/{{attributeName}}
+  body: none
+  auth: none
+}

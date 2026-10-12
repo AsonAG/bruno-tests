@@ -1,0 +1,20 @@
+meta {
+  name: GetPayrollLookupValueData
+  type: http
+  seq: 24
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/lookups/values/data?lookupName={{lookupName}}&lookupKey=2024
+  body: none
+  auth: none
+}
+
+query {
+  lookupName: {{lookupName}}
+  evaluationDate: 
+  language: 
+  lookupKey: 
+  rangeValue: 
+  regulationDate: 
+}

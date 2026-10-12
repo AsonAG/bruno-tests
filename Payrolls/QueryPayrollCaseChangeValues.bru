@@ -1,0 +1,25 @@
+meta {
+  name: QueryPayrollCaseChangeValues
+  type: http
+  seq: 13
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/changes/values?result=Items&status=Active
+  body: none
+  auth: none
+}
+
+query {
+  orderBy: name
+  result: Items
+  status: Active
+  filter: 
+  select: 
+  employeeId: 
+  clusterSetName: 
+  evaluationDate: 
+  excludeGlobal: 
+  langue: 
+  divisionId: 
+}

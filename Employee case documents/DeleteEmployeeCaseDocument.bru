@@ -1,0 +1,11 @@
+meta {
+  name: DeleteEmployeeCaseDocument
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseURL}}tenants/{{tenantId}}/employees/{{employeeId}}/cases/{{employeeCaseValue}}/documents/{{documentId}}
+  body: none
+  auth: none
+}

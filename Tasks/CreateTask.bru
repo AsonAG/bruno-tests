@@ -1,0 +1,27 @@
+meta {
+  name: CreateTask
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/tasks
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "BruTest-{{lauf}}",
+    "category": "Test",
+    "instruction": "Von der Bruno-Sammlung angelegt",
+    "scheduled": "2026-01-01T00:00:00Z"
+  }
+}
+
+script:post-response {
+  if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
+    bru.setEnvVar("neuTaskId", res.getBody().id);
+    console.log("neuTaskId = " + res.getBody().id);
+  }
+}

@@ -1,0 +1,17 @@
+meta {
+  name: RunTaskAction
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/tasks/{{neuTaskId}}:runAction
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "action": "Complete"
+  }
+}

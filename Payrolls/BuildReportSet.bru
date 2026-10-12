@@ -1,0 +1,19 @@
+meta {
+  name: BuildReportSet
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/reports/{{reportId}}/build
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "language": "German",
+    "payrollId": "{{payrollId}}",
+    "parameters": {}
+  }
+}

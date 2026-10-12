@@ -1,0 +1,23 @@
+meta {
+  name: QueryCompanyCaseChanges
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/companycases/changes?excludeGlobal=true&language=German&orderBy=validationCaseName&result=Items&status=Active
+  body: none
+  auth: none
+}
+
+query {
+  excludeGlobal: true
+  filter: id eq 541
+  language: German
+  orderBy: validationCaseName
+  result: Items
+  status: Active
+  select: userId
+  ~skip: 1
+  ~top: 2
+}

@@ -1,0 +1,11 @@
+meta {
+  name: GetPayrunPeriodEntryRelevantEventValues
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/payrunperiods/{{payrunPeriodId}}/entries/{{payrunPeriodEntryId}}/relevantEventValues
+  body: none
+  auth: none
+}

@@ -1,0 +1,22 @@
+meta {
+  name: GetPayrollCaseFields
+  type: http
+  seq: 29
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/casefields
+  body: none
+  auth: none
+}
+
+query {
+  caseFieldNames: 
+  caseType: 
+  clusterSetName: 
+  evaluationDate: 
+  language: 
+  overrideType: 
+  regulationDate: 
+  valueType: 
+}

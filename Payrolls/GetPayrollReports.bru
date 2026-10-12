@@ -1,0 +1,19 @@
+meta {
+  name: GetPayrollReports
+  type: http
+  seq: 25
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/reports
+  body: none
+  auth: none
+}
+
+query {
+  clusterSetName: 
+  evaluationDate: 
+  overrideType: 
+  regulationDate: 
+  reportNames: 
+}

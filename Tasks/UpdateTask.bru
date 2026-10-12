@@ -1,0 +1,22 @@
+meta {
+  name: UpdateTask
+  type: http
+  seq: 8
+}
+
+put {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/tasks/{{neuTaskId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": "{{neuTaskId}}",
+    "name": "BruTest-{{lauf}}",
+    "category": "TestGeaendert",
+    "instruction": "Von der Bruno-Sammlung angelegt",
+    "scheduled": "2026-01-01T00:00:00Z",
+    "attributes": { "{{attributeName}}": "123" }
+  }
+}

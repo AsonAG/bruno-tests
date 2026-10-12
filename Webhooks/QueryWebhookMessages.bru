@@ -1,0 +1,21 @@
+meta {
+  name: QueryWebhookMessages
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/webhooks/{{neuWebhookId}}/messages?result=Items&status=Active
+  body: none
+  auth: none
+}
+
+query {
+  result: Items
+  status: Active
+  orderBy: 
+  select: 
+  top: 
+  filter: 
+  skip: 
+}

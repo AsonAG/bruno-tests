@@ -1,0 +1,11 @@
+meta {
+  name: QueryPayrollCaseChanges
+  type: http
+  seq: 30
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/changes
+  body: none
+  auth: none
+}

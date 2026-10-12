@@ -1,0 +1,11 @@
+meta {
+  name: DeleteWebhook
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{baseURL}}tenants/{{tenantId}}/webhooks/{{neuWebhookId}}
+  body: none
+  auth: none
+}

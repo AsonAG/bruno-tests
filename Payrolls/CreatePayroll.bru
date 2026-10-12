@@ -1,0 +1,47 @@
+meta {
+  name: CreatePayroll
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "BruTest-{{lauf}}",
+    "divisionId": "{{divisionId}}",
+    "calendarCalculationMode": "MonthCalendarDay",
+    "country": 756,
+    "language": "German",
+    "accountingStartDate": "2026-01-01T00:00:00Z"
+  }
+}
+
+script:post-response {
+  if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
+    bru.setEnvVar("neuPayrollId", res.getBody().id);
+    bru.setVar("neuPayrollId", res.getBody().id);
+    console.log("neuPayrollId = " + res.getBody().id);
+
+    // ohne Regulation hat die Payroll weder Cases noch Lohnarten
+    const axios = require("axios");
+    const https = require("https");
+    const agent = new https.Agent({ rejectUnauthorized: false });
+    const basis = (bru.getEnvVar("baseURL") || "").replace(/\/+$/, "");
+    try {
+      await axios.put(
+        basis + "/tenants/" + bru.getVar("tenantId") + "/payrolls/" + res.getBody().id + "/regulations",
+        { countryRegulation: "CH.Swissdec", industries: [], erp: [],
+          accountingDocument: "AccountingDocument1",
+          accountingData: "CH.AccountingDataKMU" },
+        { httpsAgent: agent, timeout: 180000 });
+      console.log("Regulation CH.Swissdec zugewiesen");
+    } catch (e) {
+      console.log("Regulation nicht zuweisbar: " + e.message);
+    }
+  }
+}

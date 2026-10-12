@@ -1,0 +1,19 @@
+meta {
+  name: UpdateTenant
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{baseURL}}tenants/{{neuTenantId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": "{{neuTenantId}}",
+    "identifier": "BruTest-{{lauf}}-geaendert",
+    "culture": "de-CH"
+  }
+}

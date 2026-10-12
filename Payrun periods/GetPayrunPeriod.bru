@@ -1,0 +1,11 @@
+meta {
+  name: GetPayrunPeriod
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/payrunperiods/{{payrunPeriodId}}
+  body: none
+  auth: none
+}

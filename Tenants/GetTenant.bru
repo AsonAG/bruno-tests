@@ -1,0 +1,11 @@
+meta {
+  name: GetTenant
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}
+  body: none
+  auth: none
+}

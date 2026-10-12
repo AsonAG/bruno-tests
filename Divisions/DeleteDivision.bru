@@ -1,0 +1,11 @@
+meta {
+  name: DeleteDivision
+  type: http
+  seq: 8
+}
+
+delete {
+  url: {{baseURL}}tenants/{{tenantId}}/divisions/{{neuDivisionId}}
+  body: none
+  auth: none
+}

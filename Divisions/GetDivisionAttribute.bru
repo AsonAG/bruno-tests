@@ -1,0 +1,11 @@
+meta {
+  name: GetDivisionAttribute
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/divisions/{{neuDivisionId}}/attributes/{{attributeName}}
+  body: none
+  auth: none
+}

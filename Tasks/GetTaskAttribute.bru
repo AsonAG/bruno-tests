@@ -1,0 +1,11 @@
+meta {
+  name: GetTaskAttribute
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/tasks/{{neuTaskId}}/attributes/{{attributeName}}
+  body: none
+  auth: none
+}

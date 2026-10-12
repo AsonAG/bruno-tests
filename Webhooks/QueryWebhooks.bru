@@ -1,0 +1,21 @@
+meta {
+  name: QueryWebhooks
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseURL}}tenants/{{tenantId}}/webhooks?result=Items&status=Active
+  body: none
+  auth: none
+}
+
+query {
+  result: Items
+  status: Active
+  orderBy: 
+  select: 
+  top: 
+  filter: 
+  skip: 
+}

@@ -1,0 +1,20 @@
+meta {
+  name: CreatePayrollSimple
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/simple
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "BruTestSimple-{{lauf}}",
+    "language": "German",
+    "culture": "de-CH",
+    "accountingStartDate": "2026-01-01T00:00:00Z"
+  }
+}
