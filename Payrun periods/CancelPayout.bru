@@ -22,7 +22,7 @@ script:pre-request {
   const basis = (bru.getEnvVar("baseURL") || "").replace(/\/+$/, "");
   try {
     const r = await axios.get(basis + "/tenants/" + bru.getVar("tenantId") +
-      "/payrolls/" + bru.getEnvVar("neuPayrollId") + "/payrunperiods?top=1",
+      "/payrolls/" + bru.getVar("neuPayrollId") + "/payrunperiods?top=1",
       { httpsAgent: agent, timeout: 60000 });
     const l = r.data && r.data.items ? r.data.items : r.data;
     if (l && l.length) { bru.setVar("testPeriodeId", l[0].id); }

@@ -32,7 +32,7 @@ script:pre-request {
   bru.setVar("kopierbareLohnart", 1000);
   try {
     const r = await axios.get(basis + "/v2/tenants/" + bru.getVar("tenantId") +
-      "/payrolls/" + bru.getEnvVar("neuPayrollId") + "/wagetypes",
+      "/payrolls/" + bru.getVar("neuPayrollId") + "/wagetypes",
       { httpsAgent: agent, timeout: 60000 });
     const k = (r.data || []).find(x => x.isCopyable);
     if (k) { bru.setVar("kopierbareLohnart", k.wageTypeNumber); }

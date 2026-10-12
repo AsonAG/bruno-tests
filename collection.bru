@@ -56,23 +56,15 @@ script:pre-request {
     if (wert) bru.setVar(name, wert);
   }
   
-  // Ein zuvor angelegter Mandant hat Vorrang - so arbeiten alle Ordner
-  // nach einem post-Lauf auf dem neuen Mandanten weiter.
-  const leer = "00000000-0000-0000-0000-000000000000";
-  const vorhanden = bru.getEnvVar("neuTenantId");
-  let tid = null;
-  if (vorhanden && vorhanden !== leer && (await hole("tenants/" + vorhanden)).length) {
-    tid = vorhanden;
-    console.log("Arbeite auf dem angelegten Mandanten " + tid);
-  } else {
-    const mandanten = await hole("tenants");
-    const t = mandanten.find(x => x.identifier === mandant) || mandanten[0];
-    if (!t) {
-      console.log("Kein Mandant gefunden - laeuft der Server unter " + basis + " ?");
-      return;
-    }
-    tid = t.id;
+  // Immer der Mandant aus der Umgebung. Der von Tenants angelegte Wegwerf-
+  // Mandant ist leer, der darf hier nicht uebernommen werden.
+  const mandanten = await hole("tenants");
+  const t = mandanten.find(x => x.identifier === mandant) || mandanten[0];
+  if (!t) {
+    console.log("Kein Mandant gefunden - laeuft der Server unter " + basis + " ?");
+    return;
   }
+  const tid = t.id;
   setze("tenantId", tid);
   
   setze("payrollId", await ersteId(`tenants/${tid}/payrolls?top=1`));

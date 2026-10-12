@@ -23,7 +23,7 @@ body:json {
 
 script:post-response {
   if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
-    bru.setEnvVar("neuEmployeeId", res.getBody().id);
+    bru.setVar("neuEmployeeId", res.getBody().id);
     console.log("neuEmployeeId = " + res.getBody().id);
   }
 }

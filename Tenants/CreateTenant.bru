@@ -19,7 +19,6 @@ body:json {
 
 script:post-response {
   if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
-    bru.setEnvVar("neuTenantId", res.getBody().id);
     bru.setVar("neuTenantId", res.getBody().id);
     console.log("neuTenantId = " + res.getBody().id);
   }

@@ -20,7 +20,7 @@ script:pre-request {
   const https = require("https");
   const agent = new https.Agent({ rejectUnauthorized: false });
   const basis = (bru.getEnvVar("baseURL") || "").replace(/\/+$/, "");
-  bru.setVar("einladungZumAnnehmen", bru.getEnvVar("invitationId"));
+  bru.setVar("einladungZumAnnehmen", bru.getVar("invitationId"));
   try {
     const r = await axios.post(basis + "/tenants/" + bru.getVar("tenantId") + "/user_memberships/invite",
       { email: "bruaccept-" + bru.getVar("lauf") + "@example.org", role: { $type: "Admin" } },

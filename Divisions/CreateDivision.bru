@@ -19,7 +19,7 @@ body:json {
 
 script:post-response {
   if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
-    bru.setEnvVar("neuDivisionId", res.getBody().id);
+    bru.setVar("neuDivisionId", res.getBody().id);
     console.log("neuDivisionId = " + res.getBody().id);
   }
 }

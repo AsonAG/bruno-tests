@@ -20,7 +20,7 @@ body:json {
 
 script:post-response {
   if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
-    bru.setEnvVar("neuWebhookId", res.getBody().id);
+    bru.setVar("neuWebhookId", res.getBody().id);
     console.log("neuWebhookId = " + res.getBody().id);
   }
 }

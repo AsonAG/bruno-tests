@@ -21,7 +21,7 @@ body:json {
 
 script:post-response {
   if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
-    bru.setEnvVar("neuTaskId", res.getBody().id);
+    bru.setVar("neuTaskId", res.getBody().id);
     console.log("neuTaskId = " + res.getBody().id);
   }
 }

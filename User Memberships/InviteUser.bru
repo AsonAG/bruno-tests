@@ -20,7 +20,7 @@ body:json {
 script:post-response {
   const b = res.getBody();
   if (res.getStatus() < 300 && b && b.id) {
-    bru.setEnvVar("invitationId", b.id);
+    bru.setVar("invitationId", b.id);
     console.log("invitationId = " + b.id);
   }
 }
