@@ -6,10 +6,14 @@ meta {
 
 post {
   url: {{baseURL}}tenants/{{tenantId}}/divisions/{{neuDivisionId}}/attributes/{{attributeName}}
-  body: json
+  body: text
   auth: none
 }
 
-body:json {
+headers {
+  Content-Type: application/json
+}
+
+body:text {
   "123"
 }
