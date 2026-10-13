@@ -22,6 +22,16 @@ auth:oauth2 {
 }
 
 
+vars:pre-request {
+  baseURL: https://sandbox-api.asonpayroll.com/api/
+  tenantIdentifier: 
+  attributeName: TestAttribute
+  caseName: CH.Swissdec.CompanyData
+  caseFieldName: CH.Swissdec.CompanyFibu
+  lookupName: CH.Swissdec.UvgData
+  wageTypeNumber: 1001
+}
+
 script:pre-request {
   // Login: OAuth2 against the identity provider of the sandbox - on the first request Bruno opens the login window,
   // then it keeps and refreshes the token itself. As soon as there is a token, the ids are resolved once from the server.
@@ -175,11 +185,11 @@ docs {
 
   One request per endpoint of the API Reference of the docs (https://docs.asonpayroll.com/api), one folder per tag.
 
-  **Start:** open this folder in the Bruno app, choose the environment `sandbox` and send "Connect" (or run the whole
-  collection). On the first request
+  **Start:** open this folder in the Bruno app and send "Connect" (or run the whole collection) - the sandbox values
+  are the defaults of the collection, no environment needs to be chosen. On the first request
   Bruno opens the login of the sandbox - log in with your sandbox user, Bruno keeps and refreshes the token. The
   collection then uses your first tenant (or the one in `tenantIdentifier`) and resolves every other id from the server.
 
-  Your own instance: choose the environment `production` (address of the API) and set the identity provider and the
-  client of your instance in the collection settings (Auth).
+  Your own instance: create an environment with its `baseURL` and set the identity provider and the client of your
+  instance in the collection settings (Auth).
 }

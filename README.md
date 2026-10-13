@@ -15,18 +15,18 @@ Prerequisites: the [Bruno app](https://www.usebruno.com/downloads) and a sandbox
    git clone https://github.com/AsonAG/bruno-tests.git
    ```
 
-2. Choose the environment **sandbox** (top right) and send **Connect** (or run the whole collection). Bruno opens the login of the sandbox - log in with your sandbox
+2. Send **Connect** (or run the whole collection) - no environment needs to be chosen, the sandbox is the default. Bruno opens the login of the sandbox - log in with your sandbox
    user. Bruno keeps the token and refreshes it, there is nothing to copy or configure.
 
 3. Run the collection (Runner) - or send any request on its own.
 
-The collection uses the first tenant of your user (set `tenantIdentifier` in the environment to choose another
-one) and resolves every other id - payroll, division, employee, period, ... - from the server.
+The collection uses the first tenant of your user (set `tenantIdentifier` in the environment `sandbox` to choose
+another one) and resolves every other id - payroll, division, employee, period, ... - from the server.
 
-**Your own instance:** choose the environment `production` and set the address of your API there; in the collection
-settings (Auth) set the identity provider (authorization and token URL), the OIDC client and its callback URL of your
-instance - talk to Ason for these values. (Bruno does not fill in variables in the login settings, so they are
-entered there directly.)
+**Your own instance:** create an environment (copy `sandbox`) with the address of your API as `baseURL` and choose it;
+in the collection settings (Auth) set the identity provider (authorization and token URL), the OIDC client and its
+callback URL of your instance - talk to Ason for these values. (Bruno does not fill in variables in the login settings,
+so they are entered there directly.)
 
 ## What a run does
 
@@ -69,9 +69,8 @@ tenant that never ran a payrun - is skipped, the console says which id is missin
 
 | File | |
 | --- | --- |
-| `collection.bru` | login (OAuth2 with PKCE, sandbox), resolving the ids, the assertion "no server error" |
-| `environments/sandbox.bru` | address of the sandbox API, tenant (empty: the first one of your user) and test values |
-| `environments/production.bru` | the same for your own instance |
+| `collection.bru` | login (OAuth2 with PKCE, sandbox), the sandbox values as defaults, resolving the ids, the assertion "no server error" |
+| `environments/sandbox.bru` | the same values as an environment - to choose another tenant (`tenantIdentifier`, empty: the first one of your user) |
 | `Connect/` | the first request - it triggers the login |
 | `<Folder>/*.bru` | one request per endpoint, named like the operation in the API Reference |
 
