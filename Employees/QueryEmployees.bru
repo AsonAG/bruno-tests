@@ -7,7 +7,7 @@ meta {
 get {
   url: {{baseURL}}tenants/{{tenantId}}/employees?divisionId={{divisionId}}&filter=firstName eq 'Emira'&orderBy=firstName&result=Items&status=Active&top=3
   body: none
-  auth: none
+  auth: inherit
 }
 
 query {

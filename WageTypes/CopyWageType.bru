@@ -7,7 +7,7 @@ meta {
 post {
   url: {{baseURL}}v2/tenants/{{tenantId}}/payrolls/{{createdPayrollId}}/wagetypes?copyFromWageTypeNumber={{copyableWageType}}
   body: json
-  auth: none
+  auth: inherit
 }
 
 query {

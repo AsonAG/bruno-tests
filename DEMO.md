@@ -5,18 +5,18 @@ Outline of the demo, about 30 minutes plus questions.
 ## Preparation
 
 ```
-dotnet run -c Release --project Ason.Payroll.Api.Server --launch-profile Api.Server
 npm install
 ```
 
-The tenant in `environments/api.bru` is set to `Demo Switzerland AG`.
+The token of the sandbox login in `.env` (Quickstart of the docs: "Copy my sandbox token"), the tenant in
+`environments/sandbox.bru`.
 
 ## 1. What is covered (3 min)
 
 119 of 119 endpoints of the Integration specification. Before, it was 180 of 280 across all specifications,
 59 of them requests to routes that no longer existed.
 
-Show Swagger: https://localhost:44354/index.html
+Show the API reference of the docs.
 
 ## 2. How the ids come in (5 min)
 
@@ -26,11 +26,12 @@ request went nowhere.
 Today it holds two lines:
 
 ```
-baseURL:          https://localhost:44354/api/
-tenantIdentifier: Demo Switzerland AG
+baseURL:          https://sandbox-api.asonpayroll.com/api/
+tenantIdentifier: Acme Group
 ```
 
-A `script:pre-request` fetches the rest from the server on the first request.
+A `script:pre-request` fetches the rest from the server on the first request. The access token comes from `.env`,
+never from the repository.
 
 ## 3. Full run live (10 min)
 
@@ -43,8 +44,8 @@ webhook and payroll are created, changed, given attributes - and deleted again. 
 created, the matching DELETE removes exactly that one. After the run the database is as before.
 
 Open `results/report.html`: every request with its assertions - no server error for any request, 2xx for every
-request on the objects of the run. On "Demo Switzerland AG": 120 requests, 99 passed, 19 skipped (the object is not
-in the database, the log says which id), 2 failed - the backend finding "Case value cache is not loaded".
+request on the objects of the run. Requests for an object the tenant does not have are
+skipped, the log says which id.
 
 ## 4. One folder (5 min)
 

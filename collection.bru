@@ -1,11 +1,21 @@
 auth {
-  mode: none
+  mode: bearer
+}
+
+auth:bearer {
+  token: {{process.env.ASON_ACCESS_TOKEN}}
 }
 
 script:pre-request {
-  // Resolves the ids once per run from the server. Set in the environment:
+  // Every request sends the access token ASON_ACCESS_TOKEN of the file .env (see .env.sample) - without it the run stops.
+  // Resolves the ids once per run from the server. Set in the environment (sandbox, production):
   //   baseURL            address of the API
   //   tenantIdentifier   tenant the requests run against
+  const { accessToken } = require("./lib/api.js");
+  if (!accessToken(bru)) {
+    bru.runner.stopExecution();
+    throw new Error("ASON_ACCESS_TOKEN missing: copy .env.sample to .env and set your access token (see README.md)");
+  }
 
   // The flag is set only once everything is resolved - otherwise a request started in parallel would already see it
   // and run with empty ids.
@@ -16,7 +26,7 @@ script:pre-request {
 
     const { client, items } = require("./lib/api.js");
     const api = client(bru);
-    const tenantIdentifier = bru.getEnvVar("tenantIdentifier") || "Muster";
+    const tenantIdentifier = bru.getEnvVar("tenantIdentifier");
 
     // a list from the API - empty if it cannot be read (404: nothing there)
     async function list(path) {
@@ -40,10 +50,10 @@ script:pre-request {
 
     // Always the tenant of the environment - the throwaway tenant created by Tenants is empty and must not be used here.
     const tenants = await list("tenants");
-    const tenant = tenants.find((x) => x.identifier === tenantIdentifier) || tenants[0];
+    const tenant = tenants.find((x) => x.identifier === tenantIdentifier);
     if (!tenant) {
-      console.log(`no tenant found - is the server running at ${api.base}?`);
-      return;
+      bru.runner.stopExecution();
+      throw new Error(`tenant "${tenantIdentifier}" not found at ${api.base} - check tenantIdentifier in the environment and the access token`);
     }
     const tenantId = tenant.id;
     setIfFound("tenantId", tenantId);

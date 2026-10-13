@@ -7,7 +7,7 @@ meta {
 get {
   url: {{baseURL}}tenants/{{tenantId}}/companycases/changes/values?divisionId={{divisionId}}&excludeGlobal=true&filter=userIdentifier eq 'peter.schmid@swissdec.ch'&language=German&orderBy=caseName&result=Items&skip=1&top=5&status=Active&select=userIdentifier
   body: none
-  auth: none
+  auth: inherit
 }
 
 query {

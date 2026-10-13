@@ -5,23 +5,29 @@ A [Bruno](https://www.usebruno.com/) collection with one request per endpoint of
 
 ## Setup
 
-1. Start the backend locally:
-
-   ```
-   dotnet run -c Release --project Ason.Payroll.Api.Server --launch-profile Api.Server
-   ```
-
-2. Install the Bruno CLI (once, in this folder):
+1. Install the Bruno CLI (once, in this folder):
 
    ```
    npm install
    ```
 
-3. Set the tenant in `environments/api.bru`:
+2. Your access token - copy `.env.sample` to `.env` and set it (`.env` is not committed):
 
    ```
-   baseURL:          https://localhost:44354/api/
-   tenantIdentifier: Demo Switzerland AG
+   ASON_ACCESS_TOKEN=<your token>
+   ```
+
+   - **Sandbox:** log in on the Quickstart of the docs and click "Copy my sandbox token" - it copies the whole line.
+     The token of a login is valid for a limited time; when the run answers 401, copy a new one.
+   - **Production / your own instance:** the system user token Ason issued for your tenant.
+
+   Every request sends it as `Authorization: Bearer <token>`. Without it the run stops on the first request.
+
+3. Your tenant in `environments/sandbox.bru` (or `environments/production.bru` with the address of your instance):
+
+   ```
+   baseURL:          https://sandbox-api.asonpayroll.com/api/
+   tenantIdentifier: Acme Group
    ```
 
    That is all - the collection resolves every other id (payroll, division, employee, user, period, ...) from the
@@ -33,7 +39,8 @@ A [Bruno](https://www.usebruno.com/) collection with one request per endpoint of
 npm test
 ```
 
-Runs all folders in one go and writes the results to `results/report.html` (and `results/junit.xml` for a CI).
+Runs all folders in one go against the sandbox and writes the results to `results/report.html` (and
+`results/junit.xml` for a CI). Against your own instance: `npm run test:production`.
 
 The folders run in an order that respects their dependencies:
 
@@ -63,9 +70,6 @@ delete, set, ...) must succeed (2xx).
 that never ran a payrun - is skipped, the log says which id is missing. With the placeholder id the server would answer
 500 instead of 404.
 
-Result on the tenant "Demo Switzerland AG" (local database): 120 requests - 99 passed, 19 skipped, 2 failed:
-`GetPayrollTimeCaseValues` and `GetPayrollCaseValueCount` answer 500 "Case value cache is not loaded" (finding in
-the backend, see below).
 
 ## Run one folder
 
@@ -80,12 +84,13 @@ Payrun periods and WageTypes create their test payroll themselves when they run 
 | File | |
 | --- | --- |
 | `collection.bru` | resolves the ids once per run, the assertion "no server error" for every request |
-| `environments/api.bru` | address of the API and tenant; the other ids are placeholders, filled at run time |
+| `environments/sandbox.bru`, `production.bru` | address of the API and tenant |
+| `.env` | your access token `ASON_ACCESS_TOKEN` (not committed, see `.env.sample`) |
 | `lib/api.js` | helpers of the scripts: API calls outside the request, the test payroll, the test period |
 | `<Folder>/*.bru` | one request per endpoint, named like the operation in the specification |
 
-The scripts call the API themselves (axios), so the CLI needs `--sandbox developer` (set in `package.json`). In the
-Bruno app: Collection settings - Script sandbox - Developer mode.
+The scripts call the API themselves (axios, with the same token), so the CLI needs `--sandbox developer` (set in
+`package.json`). In the Bruno app: Collection settings - Script sandbox - Developer mode; the app reads `.env` too.
 
 ## Findings in the backend
 

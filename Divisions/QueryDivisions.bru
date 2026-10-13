@@ -7,7 +7,7 @@ meta {
 get {
   url: {{baseURL}}tenants/{{tenantId}}/divisions?filter=name eq 'CH.Swissdec'&orderBy=name&result=Items&status=Active&top=1&select=name
   body: none
-  auth: none
+  auth: inherit
 }
 
 query {

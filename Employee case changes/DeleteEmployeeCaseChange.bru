@@ -7,7 +7,7 @@ meta {
 delete {
   url: {{baseURL}}tenants/{{tenantId}}/employees/{{employeeId}}/cases/changes/{{createdEmployeeCaseChangeId}}
   body: none
-  auth: none
+  auth: inherit
 }
 
 script:pre-request {

@@ -7,7 +7,7 @@ meta {
 get {
   url: {{baseURL}}tenants/{{tenantId}}/payrolls?result=Items&status=Active&orderBy=name&select=name&filter=calendarCalculationMode eq 'MonthCalendarDay'&top=2
   body: none
-  auth: none
+  auth: inherit
 }
 
 query {

@@ -4,3 +4,5 @@
 # Bruno CLI and the results of npm test
 node_modules/
 results/
+# the access token
+.env
