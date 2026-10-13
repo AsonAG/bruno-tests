@@ -18,7 +18,9 @@ Prerequisites: the [Bruno app](https://www.usebruno.com/downloads) and a sandbox
 2. Send **Connect** (or run the whole collection) - no environment needs to be chosen, the sandbox is the default. Bruno opens the login of the sandbox - log in with your sandbox
    user. Bruno keeps the token and refreshes it, there is nothing to copy or configure.
 
-3. Run the collection (Runner) - or send any request on its own.
+3. New to Ason? Run the folder **Quickstart** - the 6 steps of the Quickstart of the docs, up to the first payslip.
+
+4. Run the collection (Runner) - or send any request on its own.
 
 The collection uses the first tenant of your user (set `tenantIdentifier` in the environment `sandbox` to choose
 another one) and resolves every other id - payroll, division, employee, period, ... - from the server.
@@ -35,18 +37,19 @@ The folders run in an order that respects their dependencies:
 | # | Folder | What it does |
 | --- | --- | --- |
 | 1 | Connect | logs in |
-| 2 | Tenants | creates a throwaway tenant, changes and deletes it |
-| 3 | Users | creates a user, changes and deletes it |
-| 4 | User Memberships | membership and invitations of a user of their own, removed again |
-| 5 | Divisions | creates and changes a division |
-| 6 | Employees | creates and changes an employee |
-| 7-11 | Employee / Company case values, documents, changes | read the case data of the tenant |
-| 12 | Tasks | creates a task, runs an action, sets an attribute, deletes both |
-| 13 | Webhooks | creates a webhook, changes and deletes it |
-| 14 | Payrun periods | payout and closing on the test payroll |
-| 15 | WageTypes | copy, activate and rename wage types on the test payroll |
-| 16 | Payrolls | creates a payroll, adds company data, changes it |
-| 17 | Company case changes | reads the case changes |
+| 2 | Quickstart | the 6 steps of the [Quickstart](https://docs.asonpayroll.com/quickstart) of the docs: tenant, payroll, regulations, company data, employee, entry data - then the first payslip is ready. A second run uses tenant, payroll and employee that are there already |
+| 3 | Tenants | creates a throwaway tenant, changes and deletes it |
+| 4 | Users | creates a user, changes and deletes it |
+| 5 | User Memberships | membership and invitations of a user of their own, removed again |
+| 6 | Divisions | creates and changes a division |
+| 7 | Employees | creates and changes an employee |
+| 8-12 | Employee / Company case values, documents, changes | read the case data of the tenant |
+| 13 | Tasks | creates a task, runs an action, sets an attribute, deletes both |
+| 14 | Webhooks | creates a webhook, changes and deletes it |
+| 15 | Payrun periods | payout and closing on the test payroll |
+| 16 | WageTypes | copy, activate and rename wage types on the test payroll |
+| 17 | Payrolls | creates a payroll, adds company data, changes it |
+| 18 | Company case changes | reads the case changes |
 
 **Test division and test payroll:** the run works in a division `BruTest` with a payroll `BruTest` - payrolls, company
 data and employees of the run go there, the real divisions and payrolls of the tenant stay as they are. Both are
@@ -72,6 +75,7 @@ tenant that never ran a payrun - is skipped, the console says which id is missin
 | `collection.bru` | login (OAuth2 with PKCE, sandbox), the sandbox values as defaults, resolving the ids, the assertion "no server error" |
 | `environments/sandbox.bru` | the same values as an environment - to choose another tenant (`tenantIdentifier`, empty: the first one of your user) |
 | `Connect/` | the first request - it triggers the login |
+| `Quickstart/` | the 6 steps of the Quickstart of the docs |
 | `<Folder>/*.bru` | one request per endpoint, named like the operation in the API Reference |
 
 The scripts run in the safe mode of Bruno (the default): calls of their own go through `bru.sendRequest` with the token

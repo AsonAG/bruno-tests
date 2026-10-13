@@ -1,0 +1,29 @@
+meta {
+  name: 3 Assign the Regulations
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseURL}}tenants/{{qsTenantId}}/payrolls/{{qsPayrollId}}/regulations
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "countryRegulation": "CH.Swissdec",
+    "accountingDocument": "AccountingDocument1",
+    "accountingData": "CH.AccountingDataKMU"
+  }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
+}
+
+docs {
+  The Swiss regulation (Swissdec), the accounting document and the chart of accounts of the payroll.
+}

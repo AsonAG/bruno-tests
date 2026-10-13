@@ -1,0 +1,365 @@
+meta {
+  name: 6 Add EmployeeNewEntryData
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseURL}}tenants/{{qsTenantId}}/payrolls/{{qsPayrollId}}/cases/sets
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "employeeId": "{{qsEmployeeId}}",
+    "divisionId": "{{qsDivisionId}}",
+    "case": {
+      "caseName": "CH.Swissdec.EmployeeNewEntryData",
+      "values": [
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeChildCount",
+          "value": "0",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeAhvNumber",
+          "value": "756.6362.5066.57"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeNumber",
+          "value": "3",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeSex",
+          "value": "M",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeBirthDate",
+          "value": "1996-02-28"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeLanguage",
+          "value": "de",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeNationality",
+          "value": "CH",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeCivilStatus",
+          "value": "married",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeEntryDate",
+          "value": "2026-01-01",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeCivilStatusValidFromDate",
+          "value": "2020-07-01",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeWorkplaceId",
+          "value": "1",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeWorkingType",
+          "value": "Steady",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeWeeklyHours",
+          "value": "42",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeMonthlyWorkTime",
+          "value": "182",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeWeeklyLessons",
+          "value": "0",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeActivityRatePercent",
+          "value": "1",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeSalaryCertificateOtherFringeBenefits",
+          "value": "1,2",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeStatisticsEducation",
+          "value": "higherVocEducationBachelor",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeStatisticsPosition",
+          "value": "noCadre",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeStatisticsJobTitle",
+          "value": "Informatiker",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeStatisticsVacationDays",
+          "value": "20",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeEmploymentContract",
+          "value": "monthlySalary",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeStatisticsContract",
+          "value": "indefiniteSalaryMth",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeStatisticsContractualMonthlyWage",
+          "value": "6400",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeStatisticsContractual13thPercent",
+          "value": "0",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeAddressCountry",
+          "value": "CH",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeAddressStreet",
+          "value": "Neuhofstrasse",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeAddressHouseNumber",
+          "value": "47",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeAddressZipCode",
+          "value": "6020",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeAddressCity",
+          "value": "Emmenbrücke",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeAddressCanton",
+          "value": "LU",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeAddressCommunityId",
+          "value": "1024",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeAhvInsuranceInstitutionId",
+          "value": "079.000",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeAhvInsuranceSpecialCase",
+          "value": "false",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeUvgInsuranceInstitutionId",
+          "value": "Backwork-Versicherungen",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeUvgInsuranceCode",
+          "value": "A1",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeUvgzInsuranceInstitutionId",
+          "value": "Backwork-Versicherungen",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeUvgzInsuranceCode",
+          "value": "11",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeKtgInsuranceInstitutionId",
+          "value": "Backwork-Versicherungen",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeKtgInsuranceCode",
+          "value": "11",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeBvgContributionAg",
+          "value": "448.00",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeBvgInsuranceInstitutionId",
+          "value": "Pensionskasse Oldsoft",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeBvgInsuranceCode",
+          "value": "21",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeBvgPfLobContribution",
+          "value": "448",
+          "start": "2026-01-01T00:00:00Z",
+          "created": "2025-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeSalaryCertificateFreeTransport",
+          "value": "true",
+          "start": "2026-01-01T00:00:00Z",
+          "created": "2025-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeSalaryCertificateFoodBenefits",
+          "value": "true",
+          "start": "2026-01-01T00:00:00Z",
+          "created": "2025-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeBankCurrency",
+          "value": "CHF",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeSalaryType",
+          "value": "M",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeBvgNotInsured",
+          "value": "false",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeSalaryCertificateAhvChildAllowance",
+          "value": "true"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeSalaryCertificateStaffShareMarketValue",
+          "value": "true"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeSalaryCertificateCompanyCar",
+          "value": "true"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeSalaryCertificateWithRegulation",
+          "value": "true"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeSalaryCertificateContinuedSalaryProvision",
+          "value": "true",
+          "created": "2025-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeSalaryCertificateContinuedSalaryProvisionContactPersonName",
+          "value": "Stephanie",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeSalaryCertificateContinuedSalaryProvisionContactPersonLastName",
+          "value": "Ganz",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeSalaryCertificateContinuedSalaryProvisionAddressStreet",
+          "value": "Neuhofstrasse 47",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeSalaryCertificateContinuedSalaryProvisionAddressZipCode",
+          "value": "6020",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeSalaryCertificateContinuedSalaryProvisionAddressCity",
+          "value": "Emmenbrücke",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeSalaryCertificateContinuedSalaryProvisionAddressCountry",
+          "value": "CH",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeSalaryCertificateStaffShareWithoutTaxableIncome",
+          "value": "BlockedOptions,UnquotedOptions,DeferredBenefitsStaffShares",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeNotReceivesThirteenthMonthWage",
+          "value": "true",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeBankIban",
+          "value": "CH7200777008130271388",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeBankName",
+          "value": "Schwyzer Kantonalbank, Bahnhofstrasse 3, Postfach 263, Schwyz 6431",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeBankAddressLine",
+          "value": "Schwyzer Kantonalbank, Bahnhofstrasse 3, Postfach 263, Schwyz 6431",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeBankBic",
+          "value": "KBSZCH22XXX",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.EmployeeBankZipCode",
+          "value": "6431",
+          "start": "2026-01-01T00:00:00.0Z"
+        }
+      ]
+    }
+  }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
+}
+
+docs {
+  The data of the entry of the employee - with step 6 the first payslip is ready: log in on https://sandbox.asonpayroll.com and open the payroll.
+}

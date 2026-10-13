@@ -1,0 +1,60 @@
+meta {
+  name: 2 Create a Payroll
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseURL}}tenants/{{qsTenantId}}/payrolls/simple
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Acme Ltd",
+    "language": "English",
+    "accountingStartDate": "2026-01-01T00:00:00Z",
+    "culture": "de-ch"
+  }
+}
+
+script:pre-request {
+  // a second run: the payroll is there already - it is used, not created again
+  const base = bru.interpolate("{{baseURL}}").replace(/\/+$/, "");
+  const headers = { Authorization: "Bearer " + bru.getOauth2CredentialVar("$oauth2.credentials.access_token") };
+  const call = async (method, path, data) => {
+    try {
+      return await bru.sendRequest({ method, url: base + "/" + path, headers, data, timeout: 60000 });
+    } catch (e) {
+      return e && e.response ? e.response : { status: 0 };
+    }
+  };
+  const list = (r) => (r.status < 300 && r.data ? (Array.isArray(r.data) ? r.data : r.data.items || []) : []);
+  const name = (req.getBody() || {}).name || "Acme Ltd";
+  const existing = list(await call("GET", "tenants/" + bru.getVar("qsTenantId") + "/payrolls")).find((x) => x.name === name);
+  if (existing) {
+    bru.setVar("qsPayrollId", existing.id);
+    bru.setVar("qsDivisionId", existing.divisionId);
+    console.log("payroll " + name + " exists already - used");
+    bru.runner.skipRequest();
+  }
+}
+
+script:post-response {
+  // the simple payroll creates its division too
+  if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
+    bru.setVar("qsPayrollId", res.getBody().id);
+    bru.setVar("qsDivisionId", res.getBody().divisionId);
+  }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
+}
+
+docs {
+  Change the name 'Acme Ltd' in the body if you like, then send. The payroll comes with a division of its own.
+}

@@ -1,0 +1,52 @@
+meta {
+  name: 1 Create a Tenant
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseURL}}tenants
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "identifier": "Acme Group"
+  }
+}
+
+script:pre-request {
+  // a second run: the tenant is there already - it is used, not created again
+  const base = bru.interpolate("{{baseURL}}").replace(/\/+$/, "");
+  const headers = { Authorization: "Bearer " + bru.getOauth2CredentialVar("$oauth2.credentials.access_token") };
+  const call = async (method, path, data) => {
+    try {
+      return await bru.sendRequest({ method, url: base + "/" + path, headers, data, timeout: 60000 });
+    } catch (e) {
+      return e && e.response ? e.response : { status: 0 };
+    }
+  };
+  const list = (r) => (r.status < 300 && r.data ? (Array.isArray(r.data) ? r.data : r.data.items || []) : []);
+  const identifier = (req.getBody() || {}).identifier || "Acme Group";
+  const existing = list(await call("GET", "tenants")).find((x) => x.identifier === identifier);
+  if (existing) {
+    bru.setVar("qsTenantId", existing.id);
+    console.log("tenant " + identifier + " exists already - used");
+    bru.runner.skipRequest();
+  }
+}
+
+script:post-response {
+  if (res.getStatus() < 300 && res.getBody() && res.getBody().id) bru.setVar("qsTenantId", res.getBody().id);
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
+}
+
+docs {
+  Change the name 'Acme Group' in the body if you like, then send. A second run uses the tenant that is there already.
+}

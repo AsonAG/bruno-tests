@@ -75,9 +75,14 @@ script:pre-request {
     const tenants = list(await call("GET", "tenants"));
     const wanted = value("tenantIdentifier");
     const tenant = wanted ? tenants.find((x) => x.identifier === wanted) : tenants.find((x) => !/^BruTest/.test(x.identifier));
-    if (!tenant) {
+    if (!tenant && wanted) {
       bru.runner.stopExecution();
-      throw new Error(wanted ? `tenant "${wanted}" not found - check tenantIdentifier` : "your user has no tenant yet - create one first (Quickstart of the docs, step 1)");
+      throw new Error(`tenant "${wanted}" not found - check tenantIdentifier`);
+    }
+    if (!tenant) {
+      // a new user: the folder Quickstart creates the first tenant, the ids are resolved after it
+      console.log("your user has no tenant yet - the folder Quickstart creates one");
+      return;
     }
     const t = `tenants/${tenant.id}`;
     bru.setVar("tenantId", tenant.id);

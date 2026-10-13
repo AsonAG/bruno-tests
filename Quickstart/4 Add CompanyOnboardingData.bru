@@ -1,0 +1,2024 @@
+meta {
+  name: 4 Add CompanyOnboardingData
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseURL}}tenants/{{qsTenantId}}/payrolls/{{qsPayrollId}}/cases/sets
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "_Info": "divisionId here was auto-created along with the Payroll in step 2.",
+    "divisionId": "{{qsDivisionId}}",
+    "reason": "CompanyOnboardingDataQuickStart is only meant for this Quickstart demo - use CH.Swissdec.CompanyOnboardingData otherwise.",
+    "case": {
+      "caseName": "CH.Swissdec.CompanyOnboardingDataQuickStart",
+      "values": [
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAccidentInsurancePolice",
+          "value": null,
+          "documents": [
+            {
+              "name": "UVG_Police.txt",
+              "content": "SGVsbG8gV29ybGQK",
+              "contentType": "application/text"
+            }
+          ],
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanySicknessDailyAllowanceInsurancePolice",
+          "value": null,
+          "documents": [
+            {
+              "name": "KTG_Police.txt",
+              "content": "aGVsbG8gV29ybGQ=",
+              "contentType": "text/plain"
+            }
+          ],
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.DoesTheCompanyHaveSupplementalAccidentInsurance",
+          "value": "true",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyUploadCompanyLogoOnboardingQuestion",
+          "value": "true",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyHasNoContracts",
+          "value": "true",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAccidentInsurancePoliceNotAvailable",
+          "value": "true",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanySupplementaryAccidentInsurancePoliceNotAvailable",
+          "value": "true",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanySicknessDailyAllowanceInsurancePoliceNotAvailable",
+          "value": "true",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyPensionFundPoliceNotAvailable",
+          "value": "true",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanySupplementaryAccidentInsurancePolice",
+          "value": null,
+          "documents": [
+            {
+              "name": "UVGZ_Police.txt",
+              "content": "SGVsbG8gV29ybGQK",
+              "contentType": "application/text"
+            }
+          ],
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyLogo",
+          "value": null,
+          "documents": [
+            {
+              "name": "logo.png",
+              "contentType": "image/png",
+              "content": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+            }
+          ],
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyPensionFundPolice",
+          "value": null,
+          "documents": [
+            {
+              "name": "BVG_Reglement-Vorsorgeplan.txt",
+              "content": "SGVsbG8gV29ybGQK",
+              "contentType": "application/text"
+            }
+          ],
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyRegulations",
+          "value": null,
+          "documents": [
+            {
+              "name": "Firmenreglement.txt",
+              "content": "SGVsbG8gV29ybGQK",
+              "contentType": "application/text"
+            }
+          ],
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyContracts",
+          "value": null,
+          "documents": [
+            {
+              "name": "Arbeitsvertrag_Fix.txt",
+              "content": "SGVsbG8gV29ybGQK",
+              "contentType": "application/text"
+            }
+          ],
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyEmployeePersonalData",
+          "value": null,
+          "documents": [
+            {
+              "name": "Personalstamm.txt",
+              "content": "SGVsbG8gV29ybGQK",
+              "contentType": "application/text"
+            }
+          ],
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyEmployeesWhoHaveChildDataRecordedOnboarding",
+          "value": "true",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyChildMasterList",
+          "value": null,
+          "documents": [
+            {
+              "name": "Personalstamm_Kinder.txt",
+              "content": "SGVsbG8gV29ybGQK",
+              "contentType": "application/text"
+            }
+          ],
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyEmployeesWhoUseCompanyVehiclesForPrivatePurposes",
+          "value": "true",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyListOfAllCompanyVehicles",
+          "value": null,
+          "documents": [
+            {
+              "name": "Personalstamm_Fahrzeuge.txt",
+              "content": "SGVsbG8gV29ybGQK",
+              "contentType": "application/text"
+            }
+          ],
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyEmployeeswithChildAllowancesOnboarding",
+          "value": "true",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAllowanceDecisionsOfTheFamilyCompensationFundOnboarding",
+          "value": null,
+          "documents": [
+            {
+              "name": "SVA-Zulagen.txt",
+              "content": "SGVsbG8gV29ybGQK",
+              "contentType": "application/text"
+            }
+          ],
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAHVAuditAvailableOnboarding",
+          "value": "true",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyMinutesOfTheLastAHVAudit",
+          "value": null,
+          "documents": [
+            {
+              "name": "SVA-Revision.txt",
+              "content": "SGVsbG8gV29ybGQK",
+              "contentType": "application/text"
+            }
+          ],
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyBookingDocumentSampleFile",
+          "value": null,
+          "documents": [
+            {
+              "name": "Buchungsbeleg.txt",
+              "content": "SGVsbG8gV29ybGQK",
+              "contentType": "application/text"
+            }
+          ],
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanySetupQuestion",
+          "value": "true",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyDoesCompanyHaveRegulations",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyEmployeePersonalDataBool",
+          "value": "true",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyBvgOnlinePortalLink",
+          "value": "https://auth.axa.ch/u/login?state=hKFo2SBIcHBUOXFhTl9vNjFEazhPS2p5ZE9DOFZMY0NOU0VSLaFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIFJULVdhZHR6Mi1pYXk3WlZ4dmVxbjc3bE1BOVgzWTVSo2NpZNkgME8zRkJ5THR3WHFvckJheDJHS2VKMGtvamRPR2tNN2c",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyBvgOnlinePortalUsername",
+          "value": "BackOffice",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyBvgOnlinePortalPassword",
+          "value": "123Bgkih!",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAhvOnlinePortalLink",
+          "value": "https://www.eadminportal.ch/portal/Portal.do?login",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAhvOnlinePortalUsername",
+          "value": "BackOffice",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAhvOnlinePortalPassword",
+          "value": "8569-FE!",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyDocumentEmploymentContractConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAhvBranchName",
+          "value": "079.000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAhvBranchNumber",
+          "value": "079.000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAhvCustomerNumber",
+          "value": "7019.2",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanySalaryCertificateExpenseDate",
+          "value": "2021-01-01",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanySalaryCertificateExpenseCanton",
+          "value": "LU",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanySalaryCertificateEmployeeParticipationDate",
+          "value": "2021-07-01T00:00:00.0Z",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanySalaryCertificateEmployeeParticipationCanton",
+          "value": "LU",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanySalaryCertificateExpatriaterulingDate",
+          "value": "2020-03-01",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanySalaryCertificateExpatriaterulingCanton",
+          "value": "LU",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanySalaryCertificateOtherFringeBenefits",
+          "value": "1,2",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyStatisticsPayAgreement",
+          "value": "individualContract",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyTrustee",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAddressName",
+          "value": "Muster AG",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAddressFirstName",
+          "value": "Hans",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAddressLastName",
+          "value": "Muster",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAddressIdUnknown",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAddressId",
+          "value": "CHE-999.999.996",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAddressCountry",
+          "value": "CH",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAddressCommunityId",
+          "value": "1061",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAddressStreet",
+          "value": "Bahnhofstrasse 1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAddressZipCode",
+          "value": "6003",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAddressCity",
+          "value": "Luzern",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAddressCanton",
+          "value": "LU",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyFakSelection",
+          "value": "BE,VD,LU,TI"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyFakCantonLuName",
+          "value": "079.000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyFakCantonLuBranchNumber",
+          "value": "079.000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyFakCantonLuCustomerNumber",
+          "value": "5676.3",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyFakCantonBeBranchNumber",
+          "value": "079.000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyFakCantonBeName",
+          "value": "079.000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyFakCantonBeCustomerNumber",
+          "value": "8734.3",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyFakCantonVdBranchNumber",
+          "value": "079.000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyFakCantonVdName",
+          "value": "079.000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyFakCantonVdCustomerNumber",
+          "value": "4296.8",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyFakCantonTiBranchNumber",
+          "value": "079.000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyFakCantonTiName",
+          "value": "079.000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyFakCantonTiCustomerNumber",
+          "value": "6192.2",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyQstSelection",
+          "start": "2026-01-01T00:00:00.0Z",
+          "value": "BE,VD,LU,TI"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyQstCantonLuCustomerIdentity",
+          "value": "158.87.6",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyQstCantonBeCustomerIdentity",
+          "value": "9217.8",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyQstCantonVdCustomerIdentity",
+          "value": "23.957.55.6",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyQstCantonTiCustomerIdentity",
+          "value": "83189.7",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvg1Number",
+          "value": "S1000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvg1CompanyName",
+          "value": "Backwork-Versicherungen",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvg1CustomerIdentity",
+          "value": "12577.2",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvg1InsuranceIdUnknown",
+          "value": "true"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvg1ContractIdentity",
+          "value": "125",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvg1OperatingPartsCount",
+          "value": "1"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvg1OperatingPart1",
+          "value": "A",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvg1OperatingPartDefaultCode1",
+          "value": "A1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvg1OperatingPartAgPercent1",
+          "value": "0.01606",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvg1OperatingPartAnPercent1",
+          "value": "0.01606",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvg1OperatingPartUvgBu1",
+          "value": "0.015",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1Number",
+          "value": "S1000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1CompanyName",
+          "value": "Backwork-Versicherungen",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1CustomerIdentity",
+          "value": "7651-873.1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1ContractIdentity",
+          "value": "4566-4",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPartsCount",
+          "value": "1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1",
+          "value": "1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1CodesCount",
+          "value": "3",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code1GroupCode",
+          "value": "10",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code1GroupCodeDescription",
+          "value": "Kategorie 0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code1SalaryMin",
+          "value": "0.00",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code1SalaryMax",
+          "value": "0.00",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code1EmployerMalePercent",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code1EmployerFemalePercent",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code1EmployeeMalePercent",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code1EmployeeFemalePercent",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code2GroupCode",
+          "value": "11",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code2GroupCodeDescription",
+          "value": "Kategorie 1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code2SalaryMin",
+          "value": "0.00",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code2SalaryMax",
+          "value": "148200.00",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code2EmployerMalePercent",
+          "value": "0.00774",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code2EmployerFemalePercent",
+          "value": "0.00774",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code2EmployeeMalePercent",
+          "value": "0.00774",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code2EmployeeFemalePercent",
+          "value": "0.00774",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code3GroupCode",
+          "value": "12",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code3GroupCodeDescription",
+          "value": "Kategorie 2",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code3SalaryMin",
+          "value": "148200",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code3SalaryMax",
+          "value": "300000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code3EmployerMalePercent",
+          "value": "0.00508",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code3EmployerFemalePercent",
+          "value": "0.00508",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code3EmployeeMalePercent",
+          "value": "0.00508",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderUvgz1OperatingPart1Code3EmployeeFemalePercent",
+          "value": "0.00508",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1Number",
+          "value": "S1000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1CompanyName",
+          "value": "Backwork-Versicherungen",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1CustomerIdentity",
+          "value": "7651-873.1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1ContractIdentity",
+          "value": "4567-4",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPartsCount",
+          "value": "1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1",
+          "value": "1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1CodesCount",
+          "value": "3",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code1GroupCode",
+          "value": "10",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code1GroupCodeDescription",
+          "value": "Kategorie 0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code1SalaryMin",
+          "value": "0.00",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code1SalaryMax",
+          "value": "0.00",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code1EmployerMalePercent",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code1EmployerFemalePercent",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code1EmployeeMalePercent",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code1EmployeeFemalePercent",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code2GroupCode",
+          "value": "11",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code2GroupCodeDescription",
+          "value": "Kategorie 1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code2SalaryMin",
+          "value": "0.00",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code2SalaryMax",
+          "value": "120000.00",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code2EmployerMalePercent",
+          "value": "0.00966",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code2EmployerFemalePercent",
+          "value": "0.00966",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code2EmployeeMalePercent",
+          "value": "0.00966",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code2EmployeeFemalePercent",
+          "value": "0.01309",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code3GroupCode",
+          "value": "12",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code3GroupCodeDescription",
+          "value": "Kategorie 2",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code3SalaryMin",
+          "value": "88200",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code3SalaryMax",
+          "value": "500000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code3EmployerMalePercent",
+          "value": "0.00105",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code3EmployerFemalePercent",
+          "value": "0.00123",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code3EmployeeMalePercent",
+          "value": "0.00105",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderKtg1OperatingPart1Code3EmployeeFemalePercent",
+          "value": "0.00123",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContactPersonName",
+          "value": "Hans Muster",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContactPersonEmailAddress",
+          "value": "MusterAG@xxxxx.ch",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContactPersonPhoneNumber",
+          "value": "041 218 65 32",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAhvAgAdministrativeCosts",
+          "value": "0.002",
+          "start": "2026-01-01T00:00:00Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyBankIban",
+          "value": "CH0200778010152237210",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyBankZipCode",
+          "value": "6002",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyBankAddressLine",
+          "value": "Pilatusstrasse 12",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyBankName",
+          "value": "Luzerner Kantonalbank AG",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyBankBic",
+          "value": "LUKBCH2260A",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyPaymentOf13thMonthsWageDoesCompanyPay",
+          "value": "true",
+          "start": "2026-01-01T00:00:07.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyPaymentOf13thMonthsSalaryTypes",
+          "value": "H,M,D",
+          "start": "2026-01-01T00:00:08.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyPaymentOf13thMonthsWageHourlyWage",
+          "value": "Monatlich",
+          "start": "2026-01-01T00:00:08.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyPaymentOf13thMonthsWageDailyWage",
+          "value": "Monatlich",
+          "start": "2026-01-01T00:00:08.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyPaymentOf13thMonthsWageAnnualWage",
+          "value": "Monatlich",
+          "start": "2026-01-01T00:00:08.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyThirteenthDifferentPaymentRhythm",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyThirteenthDuringProbationNotPaid",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyPaymentOf13thShouldBeProvisionAndBooked",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyFibu",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyPaymentOf13thMonthsWageMonthWage",
+          "value": "Monatlich",
+          "start": "2026-01-01T00:00:08.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyBankChargeBearer",
+          "value": "SHAR",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.AreTheApprovedExpenseRegulationsValidForAllEmployees",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.HasTheMarketValueBeenApprovedByTheTaxAuthorities",
+          "value": "true",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.DoesTheCompanyHaveAnApprovedExpatriateRuling",
+          "value": "true",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.DoesTheCompanyHaveADailySicknessBenefitInsurance",
+          "value": "true",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAhvBvgFirstIdUnknown",
+          "value": "true",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyBusinessCarPercentage",
+          "value": "0.009",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplacesCount",
+          "value": "4",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceDesignation1",
+          "value": "Hauptsitz",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceHasInHouseId1",
+          "value": "false"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceBurNumber1",
+          "value": "A92978109",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceWeeklyWorkingTimeOptions1",
+          "value": "1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceMonthlyWorkTime1",
+          "value": "182",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceWeeklyHoursFirst1",
+          "value": "42",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceWeeklyLessonsFirst1",
+          "value": "21",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceAdditionalWorktimes1",
+          "value": "false"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceCountry1",
+          "value": "CH",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceStreet1",
+          "value": "Bahnhofstrasse 1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceZipCode1",
+          "value": "6003",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceCity1",
+          "value": "Luzern",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceCanton1",
+          "value": "LU",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceMunicipalityId1",
+          "value": "1061",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceDesignation2",
+          "value": "Werkhof/Büro",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceHasInHouseId2",
+          "value": "false"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceBurNumber2",
+          "value": "A89058593",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceWeeklyWorkingTimeOptions2",
+          "value": "1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceMonthlyWorkTime2",
+          "value": "173",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceWeeklyHoursFirst2",
+          "value": "40",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceWeeklyLessonsFirst2",
+          "value": "20",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceAdditionalWorktimes2",
+          "value": "false"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceCountry2",
+          "value": "CH",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceStreet2",
+          "value": "Zeughausgasse 9",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceZipCode2",
+          "value": "3011",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceCity2",
+          "value": "Bern",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceCanton2",
+          "value": "BE",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceMunicipalityId2",
+          "value": "351",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceDesignation3",
+          "value": "Verkauf",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceHasInHouseId3",
+          "value": "false"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceBurNumber3",
+          "value": "A89058588",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceWeeklyWorkingTimeOptions3",
+          "value": "1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceMonthlyWorkTime3",
+          "value": "173",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceWeeklyHoursFirst3",
+          "value": "40",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceWeeklyLessonsFirst3",
+          "value": "20",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceAdditionalWorktimes3",
+          "value": "false"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceCountry3",
+          "value": "CH",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceStreet3",
+          "value": "Rue des Moulins 9",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceZipCode3",
+          "value": "1800",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceCity3",
+          "value": "Vevey",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceCanton3",
+          "value": "VD",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceMunicipalityId3",
+          "value": "5890",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceDesignation4",
+          "value": "Beratung",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceHasInHouseId4",
+          "value": "false"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceBurNumber4",
+          "value": "A92978114",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceWeeklyWorkingTimeOptions4",
+          "value": "1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceMonthlyWorkTime4",
+          "value": "173",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceWeeklyHoursFirst4",
+          "value": "40",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceWeeklyLessonsFirst4",
+          "value": "20",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceAdditionalWorktimes4",
+          "value": "false"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceCountry4",
+          "value": "CH",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceStreet4",
+          "value": "Via Canonico Ghiringhelli 19",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceZipCode4",
+          "value": "6500",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceCity4",
+          "value": "Bellinzona",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceCanton4",
+          "value": "TI",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWorkplaceMunicipalityId4",
+          "value": "5002",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWageWeeklyWageConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyActivityWorkedHoursConfiguration",
+          "value": "true",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyOnboardingSetupEndBoolCCT",
+          "value": "true",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanySinceWhenIsTheCompanyOnboardedSetUpCCT",
+          "value": "2021-01-01",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.DoesTheCompanyHaveASecondUvgInsurance",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyBusinessCarPercentageBool",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyHaveOtherCurrencies",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanySalaryCertificateTaxAnnuityBool",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyDoesHaveAccountingArea",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyEmergencyContactStaff",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWageHolidayCompensationConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWageAuthoritiesAndCommitteeMembersConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyPurchasePriceCompanyCarConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyExpenseFlatRateRepresentationExpensesConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyExpenseLumpProfessionalExpensesExpatriatesConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWageEmployerFacultativeDsaConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyAttacmentOfWagesConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyWageAttendanceFeesBodConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyActivityAdditionalWorkConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyPresenceAbsenceDailyAllowanceCorrectionConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyPresenceAbsenceDiPensionConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyActivityAppearanceBonusConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyOneTimeWageContinuedWagesPaymentConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyShortTimeWorkDeductionStwConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyPresenceAbsenceVacationPayoutConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyActivityAssignmentBonusConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyActivityNonAppearanceCompensationConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyExpenseAccommodationCostsConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyCompensationRoundingOfWagesPaidConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1CompanyNotInsured",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1CompanyName",
+          "value": "Pensionskasse Oldsoft",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1Number",
+          "value": "2755",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1CustomerIdentity",
+          "value": "2755",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1ContractIdentity",
+          "value": "2755",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1CalculatedAutomatically",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPartsCount",
+          "value": "1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1CodesCount",
+          "value": "4",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1GroupCode",
+          "value": "4",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1GroupCodeDescription",
+          "value": "Kader Zusatz",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2GroupCode",
+          "value": "1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2GroupCodeDescription",
+          "value": "Verliehenes Personal",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3GroupCode",
+          "value": "2",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3GroupCodeDescription",
+          "value": "Fixes Personal",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4GroupCode",
+          "value": "3",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4GroupCodeDescription",
+          "value": "Kader",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1AnnualEntryThresholdInCHF",
+          "value": "22050",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1MaximumAnnualBasicSalaryInCHF",
+          "value": "882000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1AnnualCoordinationDeductionInCHF",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1MaximumInsuredAnnualSalaryCHF",
+          "value": "882000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1MinimumInsuredAnnualSalaryCHF",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1TotalRiskContributionInPercent18to24Years",
+          "value": "0.0137",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1TotalSavingsContributionInPercent18to24Years",
+          "value": "0.12",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1TotalAdministrativeContributionInPercent18to24Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1TotalRiskContributionInPercent25to34Years",
+          "value": "0.0137",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1TotalSavingsContributionInPercent25to34Years",
+          "value": "0.12",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1TotalAdministrativeContributionInPercent25to34Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1TotalRiskContributionInPercent35to44Years",
+          "value": "0.0137",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1TotalSavingsContributionInPercent35to44Years",
+          "value": "0.16",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1TotalAdministrativeContributionInPercent35to44Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1TotalRiskContributionInPercent45to54Years",
+          "value": "0.0137",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1TotalSavingsContributionInPercent45to54Years",
+          "value": "0.2",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1TotalAdministrativeContributionInPercent45to54Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1TotalRiskContributionInPercent55to64or65Years",
+          "value": "0.0137",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1TotalSavingsContributionInPercent55to64or65Years",
+          "value": "0.24",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1TotalAdministrativeContributionInPercent55to64or65Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1EmployeeContributeInPercent",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1AnnualMaximumAmountForAdministrativeCostsBool",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1EmployerContributeInPercent",
+          "value": "1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1AnnualMaximumTotalAmountOfAdministrationCosts",
+          "value": "300",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2AnnualEntryThresholdInCHF",
+          "value": "22050",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2MaximumAnnualBasicSalaryInCHF",
+          "value": "88200",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2AnnualCoordinationDeductionInCHF",
+          "value": "25725",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2MaximumInsuredAnnualSalaryCHF",
+          "value": "62475",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2MinimumInsuredAnnualSalaryCHF",
+          "value": "3675",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2TotalRiskContributionInPercent18to24Years",
+          "value": "0.017",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2TotalSavingsContributionInPercent18to24Years",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2TotalAdministrativeContributionInPercent18to24Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2TotalRiskContributionInPercent25to34Years",
+          "value": "0.017",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2TotalSavingsContributionInPercent25to34Years",
+          "value": "0.07",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2TotalAdministrativeContributionInPercent25to34Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2TotalRiskContributionInPercent35to44Years",
+          "value": "0.017",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2TotalSavingsContributionInPercent35to44Years",
+          "value": "0.1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2TotalAdministrativeContributionInPercent35to44Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2TotalRiskContributionInPercent45to54Years",
+          "value": "0.017",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2TotalSavingsContributionInPercent45to54Years",
+          "value": "0.015",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2TotalAdministrativeContributionInPercent45to54Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2TotalRiskContributionInPercent55to64or65Years",
+          "value": "0.017",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2TotalSavingsContributionInPercent55to64or65Years",
+          "value": "0.18",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2EmployeeContributeInPercent",
+          "value": "0.5",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2TotalAdministrativeContributionInPercent55to64or65Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2EmployerContributeInPercent",
+          "value": "0.5",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2AnnualMaximumTotalAmountOfAdministrationCosts",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3AnnualEntryThresholdInCHF",
+          "value": "22050",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3MaximumAnnualBasicSalaryInCHF",
+          "value": "882000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3AnnualCoordinationDeductionInCHF",
+          "value": "25725",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3MaximumInsuredAnnualSalaryCHF",
+          "value": "856257",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3MinimumInsuredAnnualSalaryCHF",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3TotalRiskContributionInPercent18to24Years",
+          "value": "0.0138",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3TotalAdministrativeContributionInPercent18to24Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3TotalSavingsContributionInPercent18to24Years",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3TotalRiskContributionInPercent25to34Years",
+          "value": "0.0138",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3TotalSavingsContributionInPercent25to34Years",
+          "value": "0.07",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3TotalAdministrativeContributionInPercent25to34Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3TotalRiskContributionInPercent35to44Years",
+          "value": "0.0138",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3TotalSavingsContributionInPercent35to44Years",
+          "value": "0.1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3TotalAdministrativeContributionInPercent35to44Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3TotalRiskContributionInPercent45to54Years",
+          "value": "0.0138",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3TotalSavingsContributionInPercent45to54Years",
+          "value": "0.15",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3TotalAdministrativeContributionInPercent45to54Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3TotalRiskContributionInPercent55to64or65Years",
+          "value": "0.0138",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3TotalSavingsContributionInPercent55to64or65Years",
+          "value": "0.18",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3TotalAdministrativeContributionInPercent55to64or65Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3EmployeeContributeInPercent",
+          "value": "0.3",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3EmployerContributeInPercent",
+          "value": "0.7",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3AnnualMaximumAmountForAdministrativeCostsBool",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3AnnualMaximumTotalAmountOfAdministrationCosts",
+          "value": "300",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4AnnualEntryThresholdInCHF",
+          "value": "22050",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4MaximumAnnualBasicSalaryInCHF",
+          "value": "882",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4MaximumInsuredAnnualSalaryCHF",
+          "value": "882000",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4AnnualCoordinationDeductionInCHF",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4MinimumInsuredAnnualSalaryCHF",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4TotalRiskContributionInPercent18to24Years",
+          "value": "0.0137",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4TotalSavingsContributionInPercent18to24Years",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4TotalAdministrativeContributionInPercent18to24Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4TotalRiskContributionInPercent25to34Years",
+          "value": "0.0137",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4TotalSavingsContributionInPercent25to34Years",
+          "value": "0.07",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4TotalAdministrativeContributionInPercent25to34Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4TotalRiskContributionInPercent35to44Years",
+          "value": "0.0137",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4TotalSavingsContributionInPercent35to44Years",
+          "value": "0.1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4TotalAdministrativeContributionInPercent35to44Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4TotalRiskContributionInPercent45to54Years",
+          "value": "0.0137",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4TotalSavingsContributionInPercent45to54Years",
+          "value": "0.15",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4TotalAdministrativeContributionInPercent45to54Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4TotalRiskContributionInPercent55to64or65Years",
+          "value": "0.0137",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4TotalSavingsContributionInPercent55to64or65Years",
+          "value": "0.18",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4TotalAdministrativeContributionInPercent55to64or65Years",
+          "value": "0.006",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4EmployeeContributeInPercent",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4EmployerContributeInPercent",
+          "value": "1",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4AnnualMaximumAmountForAdministrativeCostsBool",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4AnnualMaximumTotalAmountOfAdministrationCosts",
+          "value": "300",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1ValuesConvertedToHoursOnAnAnnualBasisBool",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code1AnnualWorkingHours",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2ValuesConvertedToHoursOnAnAnnualBasisBool",
+          "value": "true",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2AnnualWorkingHours",
+          "value": "2187",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3ValuesConvertedToHoursOnAnAnnualBasisBool",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code3AnnualWorkingHours",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4ValuesConvertedToHoursOnAnAnnualBasisBool",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code4AnnualWorkingHours",
+          "value": "0",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.ContractProviderBvg1OperatingPart1Code2AnnualMaximumAmountForAdministrativeCostsBool",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyActivityWorkedLessonsConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        },
+        {
+          "caseFieldName": "CH.Swissdec.CompanyPresenceAbsenceDiDailyAllowanceConfiguration",
+          "value": "false",
+          "start": "2026-01-01T00:00:00.0Z"
+        }
+      ]
+    }
+  }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
+}
+
+docs {
+  The company data of the onboarding, with the insurance policies as documents. CompanyOnboardingDataQuickStart is only meant for this Quickstart - use CH.Swissdec.CompanyOnboardingData otherwise.
+}
