@@ -23,20 +23,6 @@ body:json {
   }
 }
 
-script:pre-request {
-  // only a wage type with isCopyable can be copied
-  const { client } = require("./lib/api.js");
-  bru.setVar("copyableWageType", 1000);
-  try {
-    const wageTypes = await client(bru).get("v2/tenants/" + bru.getVar("tenantId") + "/payrolls/" + bru.getVar("testPayrollId") + "/wagetypes", 60000);
-    const copyable = (wageTypes || []).find((x) => x.isCopyable);
-    if (copyable) { bru.setVar("copyableWageType", copyable.wageTypeNumber); }
-    else { console.log("no copyable wage type"); }
-  } catch (e) {
-    console.log("wage types could not be read: " + e.message);
-  }
-}
-
 tests {
   test("succeeds", function () {
     expect(res.getStatus()).to.be.within(200, 299);

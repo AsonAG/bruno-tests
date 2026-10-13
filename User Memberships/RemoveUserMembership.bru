@@ -14,13 +14,17 @@ script:post-response {
   // the user CreateUserMembership created for the membership
   const user = bru.getVar("memberUserId");
   if (user && user !== bru.getVar("userId")) {
-    const { client } = require("./lib/api.js");
-    try {
-      await client(bru).del("users/" + user);
-      console.log("member user deleted: " + user);
-    } catch (e) {
-      console.log("member user " + user + " could not be deleted: " + e.message);
-    }
+    const base = bru.interpolate("{{baseURL}}").replace(/\/+$/, "");
+    const headers = { Authorization: "Bearer " + bru.getOauth2CredentialVar("$oauth2.credentials.access_token") };
+    const call = async (method, path, data) => {
+      try {
+        return await bru.sendRequest({ method, url: base + "/" + path, headers, data, timeout: 60000 });
+      } catch (e) {
+        return e && e.response ? e.response : { status: 0 };
+      }
+    };
+    const r = await call("DELETE", "users/" + user);
+    console.log(r.status < 300 ? "member user deleted: " + user : "member user " + user + " could not be deleted: " + r.status);
   }
 }
 

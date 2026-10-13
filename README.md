@@ -1,99 +1,79 @@
-# Ason Payroll Integration API - Bruno tests
+# Ason Payroll API - Bruno tests
 
-A [Bruno](https://www.usebruno.com/) collection with one request per endpoint of the API Reference of the docs
-(the Integration API, `/swagger/Integration/swagger.json`), one folder per tag. Only endpoints Ason offers - no request
-and no script uses anything outside the API Reference.
+A [Bruno](https://www.usebruno.com/) collection with one request per endpoint of the
+[API Reference](https://docs.asonpayroll.com/api) of the docs, one folder per tag. Only endpoints Ason offers - no
+request and no script uses anything outside the API Reference.
 
-## Setup
+## Start in the Bruno app
 
-1. Install the Bruno CLI (once, in this folder):
+Prerequisites: the [Bruno app](https://www.usebruno.com/downloads) and a sandbox user (register on the sandbox, see the
+[Quickstart](https://docs.asonpayroll.com/quickstart) of the docs)
 
-   ```
-   npm install
-   ```
-
-2. Your access token - copy `.env.sample` to `.env` and set it (`.env` is not committed):
+1. Clone the repository and open the folder in Bruno (Open Collection):
 
    ```
-   ASON_ACCESS_TOKEN=<your token>
+   git clone https://github.com/AsonAG/bruno-tests.git
    ```
 
-   - **Sandbox:** log in on the Quickstart of the docs and click "Copy my sandbox token" - it copies the whole line.
-     The token of a login is valid for a limited time; when the run answers 401, copy a new one.
-   - **Production / your own instance:** the system user token Ason issued for your tenant.
+2. Send **Connect** (or run the whole collection). Bruno opens the login of the sandbox - log in with your sandbox
+   user. Bruno keeps the token and refreshes it, there is nothing to copy or configure.
 
-   Every request sends it as `Authorization: Bearer <token>`. Without it the run stops on the first request.
+3. Run the collection (Runner) - or send any request on its own.
 
-3. Your tenant in `environments/sandbox.bru` (or `environments/production.bru` with the address of your instance):
+The collection uses the first tenant of your user (set `tenantIdentifier` in the collection variables to choose
+another one) and resolves every other id - payroll, division, employee, period, ... - from the server.
 
-   ```
-   baseURL:          https://sandbox-api.asonpayroll.com/api/
-   tenantIdentifier: Acme Group
-   ```
+**Your own instance:** choose the environment `production` and set the address of your API, the identity provider, the
+OIDC client and its redirect URL (`oauthCallbackUrl`) - talk to Ason for these values.
 
-   That is all - the collection resolves every other id (payroll, division, employee, user, period, ...) from the
-   server on its first request (`collection.bru`).
-
-## Run everything
-
-```
-npm test
-```
-
-Runs all folders in one go against the sandbox and writes the results to `results/report.html` (and
-`results/junit.xml` for a CI). Against your own instance: `npm run test:production`.
+## What a run does
 
 The folders run in an order that respects their dependencies:
 
 | # | Folder | What it does |
 | --- | --- | --- |
-| 1 | Tenants | creates a throwaway tenant, changes and deletes it |
-| 2 | Users | creates a user, changes and deletes it |
-| 3 | User Memberships | membership and invitations of a user of their own, removed again |
-| 4 | Divisions | creates and changes a division |
-| 5 | Employees | creates and changes an employee |
-| 6-10 | Employee / Company case values, documents, changes | read the case data of the tenant |
-| 11 | Tasks | creates a task, runs an action, sets an attribute, deletes both |
-| 12 | Webhooks | creates a webhook, changes and deletes it |
-| 13 | Payrun periods | payout, cancel and close on the test payroll |
-| 14 | WageTypes | copy, activate and rename wage types on the test payroll |
-| 15 | Payrolls | creates a payroll, adds company data, changes it |
-| 16 | Company case changes | reads the case changes |
+| 1 | Connect | logs in |
+| 2 | Tenants | creates a throwaway tenant, changes and deletes it |
+| 3 | Users | creates a user, changes and deletes it |
+| 4 | User Memberships | membership and invitations of a user of their own, removed again |
+| 5 | Divisions | creates and changes a division |
+| 6 | Employees | creates and changes an employee |
+| 7-11 | Employee / Company case values, documents, changes | read the case data of the tenant |
+| 12 | Tasks | creates a task, runs an action, sets an attribute, deletes both |
+| 13 | Webhooks | creates a webhook, changes and deletes it |
+| 14 | Payrun periods | payout and closing on the test payroll |
+| 15 | WageTypes | copy, activate and rename wage types on the test payroll |
+| 16 | Payrolls | creates a payroll, adds company data, changes it |
+| 17 | Company case changes | reads the case changes |
 
 **Test division and test payroll:** the run works in a division `BruTest` with a payroll `BruTest` - payrolls, company
 data and employees of the run go there, the real divisions and payrolls of the tenant stay as they are. Both are
 created on the first run and reused by every later run.
 
-**What stays after a run:** the API deletes no payrolls, divisions, employees, case values or documents (see the release
-notes of the docs: such data is corrected, not deleted). So every run leaves a division `BruTest-<run>`, the payrolls
-`BruTest-<run>` and `BruTestSimple-<run>` (with the division it creates for itself) and an employee
-`brutest-<run>@example.org`. Tenant, user, membership, invitations, task and webhook of the run are deleted again.
+**What stays after a run:** the API deletes no payrolls, divisions, employees, case values or documents (see the
+[release notes](https://docs.asonpayroll.com/release-notes): such data is corrected, not deleted). So every run leaves a
+division `BruTest-<run>`, the payrolls `BruTest-<run>` and `BruTestSimple-<run>` (with the division it creates for
+itself), an employee `brutest-<run>@example.org` and a copied wage type in the test payroll. Tenant, user, membership,
+invitations, task and webhook of the run are deleted again.
 
 **Assertions:** no request may answer with a server error (5xx). Requests on the objects of the run (create, update,
-delete, set, ...) must succeed (2xx).
+delete, set, ...) must succeed (2xx). Where the API answers with a defined error, the test checks exactly that error
+(e.g. `CreatePayout` and `ClosePayrunPeriod` on a period without payrun: 400 with the message).
 
-**Skipped requests:** a request for an object the database does not have - e.g. a document, payout or task of a tenant
-that never ran a payrun - is skipped, the log says which id is missing. With the placeholder id the server would answer
-500 instead of 404.
-
-## Run one folder
-
-```
-npm run test:folder -- Divisions
-```
+**Skipped requests:** in a run, a request for an object the tenant does not have - e.g. a document, payout or task of a
+tenant that never ran a payrun - is skipped, the console says which id is missing.
 
 ## Structure
 
 | File | |
 | --- | --- |
-| `collection.bru` | resolves the ids once per run, the assertion "no server error" for every request |
-| `environments/sandbox.bru`, `production.bru` | address of the API and tenant |
-| `.env` | your access token `ASON_ACCESS_TOKEN` (not committed, see `.env.sample`) |
-| `lib/api.js` | helpers of the scripts: API calls outside the request, the test division, the test payroll, the test period |
-| `<Folder>/*.bru` | one request per endpoint, named like the operation in the specification |
+| `collection.bru` | login (OAuth2 with PKCE), variables of the sandbox, resolving the ids, the assertion "no server error" |
+| `environments/production.bru` | address, identity provider and client of your own instance |
+| `Connect/` | the first request - it triggers the login |
+| `<Folder>/*.bru` | one request per endpoint, named like the operation in the API Reference |
 
-The scripts call the API themselves (axios, with the same token), so the CLI needs `--sandbox developer` (set in
-`package.json`). In the Bruno app: Collection settings - Script sandbox - Developer mode; the app reads `.env` too.
+The scripts run in the safe mode of Bruno (the default): calls of their own go through `bru.sendRequest` with the token
+of the login, no npm modules, no files.
 
 ## Findings in the backend
 

@@ -21,14 +21,22 @@ body:json {
 
 script:pre-request {
   // the wage type CopyWageType created - only a copy can be renamed, e.g. the localizations of 1000 cannot be changed
-  const { client } = require("./lib/api.js");
-  try {
-    const wageTypes = await client(bru).get("v2/tenants/" + bru.getVar("tenantId") + "/payrolls/" + bru.getVar("testPayrollId") + "/wagetypes", 60000);
-    const copy = (wageTypes || []).find((x) => x.nameLocalizations && x.nameLocalizations.en === "Bru copy");
-    if (copy) { bru.setVar("copiedWageType", copy.wageTypeNumber); }
-    else { console.log("no copied wage type - CopyWageType did not run"); bru.runner.skipRequest(); }
-  } catch (e) {
-    console.log("wage types could not be read: " + e.message);
+  const base = bru.interpolate("{{baseURL}}").replace(/\/+$/, "");
+  const headers = { Authorization: "Bearer " + bru.getOauth2CredentialVar("$oauth2.credentials.access_token") };
+  const call = async (method, path, data) => {
+    try {
+      return await bru.sendRequest({ method, url: base + "/" + path, headers, data, timeout: 60000 });
+    } catch (e) {
+      return e && e.response ? e.response : { status: 0 };
+    }
+  };
+  const res = await call("GET", "v2/tenants/" + bru.getVar("tenantId") + "/payrolls/" + bru.getVar("testPayrollId") + "/wagetypes");
+  const list = res.status < 300 && Array.isArray(res.data) ? res.data : [];
+  const copy = list.find((x) => x.nameLocalizations && x.nameLocalizations.en === "Bru copy");
+  if (copy) {
+    bru.setVar("copiedWageType", copy.wageTypeNumber);
+  } else {
+    console.log("skipped: no copied wage type - CopyWageType did not run");
     bru.runner.skipRequest();
   }
 }

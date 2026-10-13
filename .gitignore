@@ -1,8 +1,7 @@
 # runtime data of Bruno
 .bruno/
 *.log
-# Bruno CLI and the results of npm test
+# local tools and results
 node_modules/
 results/
-# the access token
 .env

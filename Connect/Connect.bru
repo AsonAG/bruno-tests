@@ -1,0 +1,22 @@
+meta {
+  name: Connect
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseURL}}tenants
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("logged in", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+}
+
+docs {
+  The first request: Bruno opens the login of the sandbox (identity provider Zitadel) - log in with your sandbox user.
+  Bruno keeps the token and refreshes it; the next request resolves the ids of your tenant.
+}

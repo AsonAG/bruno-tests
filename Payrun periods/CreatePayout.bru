@@ -18,12 +18,6 @@ body:json {
   }
 }
 
-script:pre-request {
-  // the period of the test payroll - so nothing changes on a real pay period
-  const { loadTestPeriod } = require("./lib/api.js");
-  await loadTestPeriod(bru);
-}
-
 script:post-response {
   if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
     bru.setVar("createdPayoutId", res.getBody().id);

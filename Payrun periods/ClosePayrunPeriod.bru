@@ -14,12 +14,6 @@ body:json {
   {}
 }
 
-script:pre-request {
-  // the period of the test payroll - so nothing changes on a real pay period
-  const { loadTestPeriod } = require("./lib/api.js");
-  await loadTestPeriod(bru);
-}
-
 tests {
   // the test payroll never ran a payrun: no documents of the period, so it cannot be closed
   test("period without documents: 400 Payrun period documents are not generated", function () {

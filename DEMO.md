@@ -4,12 +4,7 @@ Outline of the demo, about 30 minutes plus questions.
 
 ## Preparation
 
-```
-npm install
-```
-
-The token of the sandbox login in `.env` (Quickstart of the docs: "Copy my sandbox token"), the tenant in
-`environments/sandbox.bru`.
+The Bruno app, the repository opened as collection, a sandbox user.
 
 ## 1. What is covered (3 min)
 
@@ -23,36 +18,28 @@ Show the API reference of the docs.
 Show `collection.bru`. The environment file used to hold 37 GUIDs from one database - on any other machine every
 request went nowhere.
 
-Today it holds two lines:
+Today it holds nothing for the sandbox - the address, identity provider and client of the sandbox are collection
+variables, the tenant is the first one of the user.
 
-```
-baseURL:          https://sandbox-api.asonpayroll.com/api/
-tenantIdentifier: Acme Group
-```
-
-A `script:pre-request` fetches the rest from the server on the first request. The access token comes from `.env`,
-never from the repository.
+A `script:pre-request` fetches the rest from the server. The login is OAuth2 with PKCE: on the first request Bruno
+opens the sandbox login, keeps the token and refreshes it - nothing to copy, nothing in the repository.
 
 ## 3. Full run live (10 min)
 
-```
-npm test
-```
+Runner - Run Collection.
 
 All 16 folders in one run, in the order of their dependencies: tenant, user, membership, division, employee, task,
 webhook and payroll are created and changed; what the API can delete is deleted again. Every POST remembers the id it
 created, the matching DELETE removes exactly that one. Payrolls, divisions and employees stay - the API does not
 delete them (release notes); the run keeps them in its own division BruTest.
 
-Open `results/report.html`: every request with its assertions - no server error for any request, 2xx for every
+The runner shows every request with its assertions - no server error for any request, 2xx for every
 request on the objects of the run. Requests for an object the tenant does not have are
 skipped, the log says which id.
 
 ## 4. One folder (5 min)
 
-```
-npm run test:folder -- Payrolls
-```
+Run the folder Payrolls on its own.
 
 Requests for objects the local database does not have - documents, payouts, attachments - are skipped, the log
 says which id is missing.

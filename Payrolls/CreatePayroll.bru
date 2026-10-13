@@ -26,13 +26,20 @@ script:post-response {
     bru.setVar("createdPayrollId", res.getBody().id);
     console.log("createdPayrollId = " + res.getBody().id);
     // without regulations the payroll has neither cases nor wage types
-    const { client, assignRegulations } = require("./lib/api.js");
+  const base = bru.interpolate("{{baseURL}}").replace(/\/+$/, "");
+  const headers = { Authorization: "Bearer " + bru.getOauth2CredentialVar("$oauth2.credentials.access_token") };
+  const call = async (method, path, data) => {
     try {
-      await assignRegulations(client(bru), bru.getVar("tenantId"), res.getBody().id);
-      console.log("regulation CH.Swissdec assigned");
+      return await bru.sendRequest({ method, url: base + "/" + path, headers, data, timeout: 60000 });
     } catch (e) {
-      console.log("regulation could not be assigned: " + e.message);
+      return e && e.response ? e.response : { status: 0 };
     }
+  };
+    const r = await call("PUT", "tenants/" + bru.getVar("tenantId") + "/payrolls/" + res.getBody().id + "/regulations", {
+      countryRegulation: "CH.Swissdec", industries: [], erp: [],
+      accountingDocument: "AccountingDocument1", accountingData: "CH.AccountingDataKMU",
+    });
+    console.log(r.status < 300 ? "regulation CH.Swissdec assigned" : "regulation could not be assigned: " + r.status);
   }
 }
 

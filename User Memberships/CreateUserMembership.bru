@@ -22,14 +22,21 @@ body:json {
 
 script:pre-request {
   // the membership needs a user of its own
-  const { client } = require("./lib/api.js");
-  try {
-    const user = await client(bru).post("users",
-      { identifier: "brumember-" + bru.getVar("runId") + "@example.org",
-        firstName: "Bru", lastName: "Member", language: "German", culture: "de-CH" }, 60000);
-    bru.setVar("memberUserId", user.id);
-  } catch (e) {
-    console.log("user for the membership could not be created: " + e.message);
+  const base = bru.interpolate("{{baseURL}}").replace(/\/+$/, "");
+  const headers = { Authorization: "Bearer " + bru.getOauth2CredentialVar("$oauth2.credentials.access_token") };
+  const call = async (method, path, data) => {
+    try {
+      return await bru.sendRequest({ method, url: base + "/" + path, headers, data, timeout: 60000 });
+    } catch (e) {
+      return e && e.response ? e.response : { status: 0 };
+    }
+  };
+  const r = await call("POST", "users", { identifier: "brumember-" + bru.getVar("runId") + "@example.org",
+    firstName: "Bru", lastName: "Member", language: "German", culture: "de-CH" });
+  if (r.status < 300 && r.data && r.data.id) {
+    bru.setVar("memberUserId", r.data.id);
+  } else {
+    console.log("user for the membership could not be created: " + r.status);
     bru.setVar("memberUserId", bru.getVar("userId"));
   }
 }

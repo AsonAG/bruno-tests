@@ -16,27 +16,36 @@ body:json {
 
 script:pre-request {
   // an invitation of its own - the one of InviteUser is read and withdrawn later
-  const { client } = require("./lib/api.js");
+  const base = bru.interpolate("{{baseURL}}").replace(/\/+$/, "");
+  const headers = { Authorization: "Bearer " + bru.getOauth2CredentialVar("$oauth2.credentials.access_token") };
+  const call = async (method, path, data) => {
+    try {
+      return await bru.sendRequest({ method, url: base + "/" + path, headers, data, timeout: 60000 });
+    } catch (e) {
+      return e && e.response ? e.response : { status: 0 };
+    }
+  };
   bru.setVar("invitationToAccept", bru.getVar("invitationId"));
-  try {
-    const invitation = await client(bru).post("tenants/" + bru.getVar("tenantId") + "/user_memberships/invite",
-      { email: "bruaccept-" + bru.getVar("runId") + "@example.org", role: { $type: "Admin" } }, 60000);
-    if (invitation && invitation.id) { bru.setVar("invitationToAccept", invitation.id); }
-  } catch (e) {
-    console.log("invitation could not be created: " + e.message);
-  }
+  const r = await call("POST", "tenants/" + bru.getVar("tenantId") + "/user_memberships/invite",
+    { email: "bruaccept-" + bru.getVar("runId") + "@example.org", role: { $type: "Admin" } });
+  if (r.status < 300 && r.data && r.data.id) bru.setVar("invitationToAccept", r.data.id);
+  else console.log("invitation could not be created: " + r.status);
 }
 
 script:post-response {
   // the invitation of its own is withdrawn again - accepting does not remove it
   const id = bru.getVar("invitationToAccept");
   if (id && id !== bru.getVar("invitationId")) {
-    const { client } = require("./lib/api.js");
-    try {
-      await client(bru).del("tenants/" + bru.getVar("tenantId") + "/user_memberships/invitations/" + id);
-      console.log("invitation withdrawn: " + id);
-    } catch (e) {
-      console.log("invitation " + id + " could not be withdrawn: " + e.message);
-    }
+    const base = bru.interpolate("{{baseURL}}").replace(/\/+$/, "");
+    const headers = { Authorization: "Bearer " + bru.getOauth2CredentialVar("$oauth2.credentials.access_token") };
+    const call = async (method, path, data) => {
+      try {
+        return await bru.sendRequest({ method, url: base + "/" + path, headers, data, timeout: 60000 });
+      } catch (e) {
+        return e && e.response ? e.response : { status: 0 };
+      }
+    };
+    const r = await call("DELETE", "tenants/" + bru.getVar("tenantId") + "/user_memberships/invitations/" + id);
+    console.log(r.status < 300 ? "invitation withdrawn: " + id : "invitation " + id + " could not be withdrawn: " + r.status);
   }
 }
