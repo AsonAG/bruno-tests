@@ -12,7 +12,7 @@ post {
 
 body:json {
   {
-    "identifier": "brutest-{{lauf}}@example.org",
+    "identifier": "brutest-{{runId}}@example.org",
     "firstName": "Bru",
     "lastName": "Test",
     "culture": "de-CH",
@@ -22,7 +22,13 @@ body:json {
 
 script:post-response {
   if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
-    bru.setVar("neuUserId", res.getBody().id);
-    console.log("neuUserId = " + res.getBody().id);
+    bru.setVar("createdUserId", res.getBody().id);
+    console.log("createdUserId = " + res.getBody().id);
   }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

@@ -5,18 +5,24 @@ meta {
 }
 
 put {
-  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/tasks/{{neuTaskId}}
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/tasks/{{createdTaskId}}
   body: json
   auth: none
 }
 
 body:json {
   {
-    "id": "{{neuTaskId}}",
-    "name": "BruTest-{{lauf}}",
-    "category": "TestGeaendert",
-    "instruction": "Von der Bruno-Sammlung angelegt",
+    "id": "{{createdTaskId}}",
+    "name": "BruTest-{{runId}}",
+    "category": "TestChanged",
+    "instruction": "Created by the Bruno collection",
     "scheduled": "2026-01-01T00:00:00Z",
     "attributes": { "{{attributeName}}": "123" }
   }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

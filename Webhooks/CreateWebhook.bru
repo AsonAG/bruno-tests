@@ -20,7 +20,13 @@ body:json {
 
 script:post-response {
   if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
-    bru.setVar("neuWebhookId", res.getBody().id);
-    console.log("neuWebhookId = " + res.getBody().id);
+    bru.setVar("createdWebhookId", res.getBody().id);
+    console.log("createdWebhookId = " + res.getBody().id);
   }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

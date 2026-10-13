@@ -5,7 +5,7 @@ meta {
 }
 
 patch {
-  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}/wagetypemaster/settings
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{createdPayrollId}}/wagetypemaster/settings
   body: json
   auth: none
 }
@@ -15,4 +15,10 @@ body:json {
     "accountAssignments": {},
     "payrollControlling": {}
   }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

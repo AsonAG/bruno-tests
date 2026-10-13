@@ -5,15 +5,21 @@ meta {
 }
 
 put {
-  url: {{baseURL}}tenants/{{neuTenantId}}
+  url: {{baseURL}}tenants/{{createdTenantId}}
   body: json
   auth: none
 }
 
 body:json {
   {
-    "id": "{{neuTenantId}}",
-    "identifier": "BruTest-{{lauf}}-geaendert",
+    "id": "{{createdTenantId}}",
+    "identifier": "BruTest-{{runId}}-changed",
     "culture": "de-CH"
   }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

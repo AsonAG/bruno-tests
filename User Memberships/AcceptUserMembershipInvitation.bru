@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{baseURL}}user_membership_invitations/{{einladungZumAnnehmen}}
+  url: {{baseURL}}user_membership_invitations/{{invitationToAccept}}
   body: json
   auth: none
 }
@@ -15,16 +15,28 @@ body:json {
 }
 
 script:pre-request {
-  // eine eigene Einladung anlegen; die aus InviteUser wird spaeter noch gelesen und zurueckgezogen
-  const axios = require("axios");
-  const https = require("https");
-  const agent = new https.Agent({ rejectUnauthorized: false });
-  const basis = (bru.getEnvVar("baseURL") || "").replace(/\/+$/, "");
-  bru.setVar("einladungZumAnnehmen", bru.getVar("invitationId"));
+  // an invitation of its own - the one of InviteUser is read and withdrawn later
+  const { client } = require("./lib/api.js");
+  bru.setVar("invitationToAccept", bru.getVar("invitationId"));
   try {
-    const r = await axios.post(basis + "/tenants/" + bru.getVar("tenantId") + "/user_memberships/invite",
-      { email: "bruaccept-" + bru.getVar("lauf") + "@example.org", role: { $type: "Admin" } },
-      { httpsAgent: agent, timeout: 60000 });
-    if (r.data && r.data.id) { bru.setVar("einladungZumAnnehmen", r.data.id); }
-  } catch (e) { console.log("Einladung nicht anlegbar: " + e.message); }
+    const invitation = await client(bru).post("tenants/" + bru.getVar("tenantId") + "/user_memberships/invite",
+      { email: "bruaccept-" + bru.getVar("runId") + "@example.org", role: { $type: "Admin" } }, 60000);
+    if (invitation && invitation.id) { bru.setVar("invitationToAccept", invitation.id); }
+  } catch (e) {
+    console.log("invitation could not be created: " + e.message);
+  }
+}
+
+script:post-response {
+  // the invitation of its own is withdrawn again - accepting does not remove it
+  const id = bru.getVar("invitationToAccept");
+  if (id && id !== bru.getVar("invitationId")) {
+    const { client } = require("./lib/api.js");
+    try {
+      await client(bru).del("tenants/" + bru.getVar("tenantId") + "/user_memberships/invitations/" + id);
+      console.log("invitation withdrawn: " + id);
+    } catch (e) {
+      console.log("invitation " + id + " could not be withdrawn: " + e.message);
+    }
+  }
 }

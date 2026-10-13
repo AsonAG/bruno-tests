@@ -1,5 +1,10 @@
 {
   "version": "1",
-  "name": "tests",
-  "type": "collection"
+  "name": "Ason Payroll Integration API",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git",
+    "results"
+  ]
 }

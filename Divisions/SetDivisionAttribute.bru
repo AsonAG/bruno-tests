@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{baseURL}}tenants/{{tenantId}}/divisions/{{neuDivisionId}}/attributes/{{attributeName}}
+  url: {{baseURL}}tenants/{{tenantId}}/divisions/{{createdDivisionId}}/attributes/{{attributeName}}
   body: text
   auth: none
 }
@@ -16,4 +16,10 @@ headers {
 
 body:text {
   "123"
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

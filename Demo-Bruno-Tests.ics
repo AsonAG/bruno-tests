@@ -1,6 +1,6 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Ason//Bruno Tests//DE
+PRODID:-//Ason//Bruno Tests//EN
 CALSCALE:GREGORIAN
 METHOD:REQUEST
 BEGIN:VEVENT
@@ -8,19 +8,19 @@ UID:ef6bbfa2-9221-496e-826c-0a69e74d297e
 DTSTAMP:20261007T125409Z
 DTSTART;TZID=Europe/Zurich:20261009T130000
 DTEND;TZID=Europe/Zurich:20261009T134500
-SUMMARY:Vorfuehrung Bruno-Tests (Integration-API)
-LOCATION:Teams / vor Ort
-DESCRIPTION:Vorfuehrung der Bruno-Sammlung fuer die Integration-Schnittstelle.
+SUMMARY:Demo Bruno tests (Integration API)
+LOCATION:Teams / on site
+DESCRIPTION:Demo of the Bruno collection for the Integration API.
 
-Inhalt:
-- Abdeckung: 119 von 119 Endpunkten aus /swagger/Integration/swagger.json
-- Wie die Sammlung ihre Ids selbst vom Server holt, ohne gepflegte GUIDs
-- Ordner lebenszyklus: anlegen, aendern, wieder loeschen - 24 von 24 gruen
-- Live-Durchlauf mit der Bruno-CLI
-- Gefundene Serverbefunde: Employee ohne DELETE, Payroll-Delete am Layer, Tenant-Delete zu langsam, 500 statt 404 bei unbekannter Id
+Content:
+- Coverage: 119 of 119 endpoints of /swagger/Integration/swagger.json
+- How the collection fetches its ids from the server, without maintained GUIDs
+- Lifecycle: create, change, delete again - 24 of 24 green
+- Live run with the Bruno CLI
+- Findings in the server: employee without DELETE, payroll delete fails on the layer, tenant delete too slow, 500 instead of 404 for an unknown id
 
 Repo: AsonAG/bruno-tests
-Voraussetzung: lokales Backend auf https://localhost:44354
+Requirement: local backend on https://localhost:44354
 ORGANIZER;CN=Fran Matkovic:mailto:fma@ason.ch
 ATTENDEE;CN=Fran Matkovic;ROLE=CHAIR;PARTSTAT=ACCEPTED;RSVP=FALSE:mailto:fma@ason.ch
 ATTENDEE;CN=Emira Dubravac;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE:mailto:edu@ason.ch
@@ -30,7 +30,7 @@ SEQUENCE:0
 BEGIN:VALARM
 TRIGGER:-PT15M
 ACTION:DISPLAY
-DESCRIPTION:Vorfuehrung Bruno-Tests
+DESCRIPTION:Demo Bruno tests
 END:VALARM
 END:VEVENT
 END:VCALENDAR

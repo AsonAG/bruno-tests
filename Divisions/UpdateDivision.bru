@@ -5,16 +5,22 @@ meta {
 }
 
 put {
-  url: {{baseURL}}tenants/{{tenantId}}/divisions/{{neuDivisionId}}
+  url: {{baseURL}}tenants/{{tenantId}}/divisions/{{createdDivisionId}}
   body: json
   auth: none
 }
 
 body:json {
   {
-    "id": "{{neuDivisionId}}",
-    "name": "BruTest-{{lauf}}-geaendert",
+    "id": "{{createdDivisionId}}",
+    "name": "BruTest-{{runId}}-changed",
     "culture": "de-CH",
     "attributes": { "{{attributeName}}": "123" }
   }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

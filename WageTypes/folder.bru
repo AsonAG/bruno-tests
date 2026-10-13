@@ -1,27 +1,10 @@
 meta {
   name: WageTypes
-  seq: 15
+  seq: 14
 }
 
 script:pre-request {
-  // Lohnarten werden an einer Wegwerf-Payroll geprueft. Legt der Ordner Payrolls
-  // keine an (Einzellauf), entsteht sie hier.
-  if (bru.getVar("neuPayrollId")) { return; }
-  const axios = require("axios");
-  const https = require("https");
-  const agent = new https.Agent({ rejectUnauthorized: false });
-  const basis = (bru.getEnvVar("baseURL") || "").replace(/\/+$/, "");
-  try {
-    const p = await axios.post(basis + "/tenants/" + bru.getVar("tenantId") + "/payrolls",
-      { name: "BruTest-" + bru.getVar("lauf"), divisionId: bru.getVar("divisionId"),
-        calendarCalculationMode: "MonthCalendarDay", country: 756, language: "German",
-        accountingStartDate: "2026-01-01T00:00:00Z" },
-      { httpsAgent: agent, timeout: 180000 });
-    bru.setVar("neuPayrollId", p.data.id);
-    await axios.put(basis + "/tenants/" + bru.getVar("tenantId") + "/payrolls/" + p.data.id + "/regulations",
-      { countryRegulation: "CH.Swissdec", industries: [], erp: [],
-        accountingDocument: "AccountingDocument1", accountingData: "CH.AccountingDataKMU" },
-      { httpsAgent: agent, timeout: 180000 });
-    console.log("Test-Payroll fuer die Lohnarten: " + p.data.id);
-  } catch (e) { console.log("Test-Payroll nicht anlegbar: " + e.message); }
+  // the wage types are tested on a test payroll (created once per run)
+  const { ensureTestPayroll } = require("./lib/api.js");
+  await ensureTestPayroll(bru);
 }

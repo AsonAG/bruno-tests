@@ -12,14 +12,20 @@ post {
 
 body:json {
   {
-    "name": "BruTest-{{lauf}}",
+    "name": "BruTest-{{runId}}",
     "culture": "de-CH"
   }
 }
 
 script:post-response {
   if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
-    bru.setVar("neuDivisionId", res.getBody().id);
-    console.log("neuDivisionId = " + res.getBody().id);
+    bru.setVar("createdDivisionId", res.getBody().id);
+    console.log("createdDivisionId = " + res.getBody().id);
   }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

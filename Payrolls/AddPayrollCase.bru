@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}/cases/sets
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{createdPayrollId}}/cases/sets
   body: json
   auth: none
 }
@@ -19,7 +19,7 @@ body:json {
       "caseName": "{{caseName}}",
       "values": [
         { "caseName": "{{caseName}}", "caseFieldName": "CH.Swissdec.CompanyAddressId", "valueType": "String", "value": "CHE-999.999.996", "start": "2026-01-01T00:00:00Z" },
-        { "caseName": "{{caseName}}", "caseFieldName": "CH.Swissdec.ContactPersonName", "valueType": "String", "value": "Bru Test {{lauf}}", "start": "2026-01-01T00:00:00Z" },
+        { "caseName": "{{caseName}}", "caseFieldName": "CH.Swissdec.ContactPersonName", "valueType": "String", "value": "Bru Test {{runId}}", "start": "2026-01-01T00:00:00Z" },
         { "caseName": "{{caseName}}", "caseFieldName": "CH.Swissdec.ContactPersonEmailAddress", "valueType": "String", "value": "brutest@example.org", "start": "2026-01-01T00:00:00Z" },
         { "caseName": "{{caseName}}", "caseFieldName": "CH.Swissdec.ContactPersonPhoneNumber", "valueType": "String", "value": "+41 44 000 00 00", "start": "2026-01-01T00:00:00Z" }
       ]
@@ -28,10 +28,16 @@ body:json {
 }
 
 script:post-response {
-  // die angelegten Werte merken, damit DeleteCompanyCaseChange etwas zu loeschen hat
+  // remember the created values, so DeleteCompanyCaseChange has something to delete
   const b = res.getBody();
   if (res.getStatus() < 300 && b && b.values && b.values.length) {
-    bru.setVar("neuCompanyCaseChangeId", b.values[0].id);
-    console.log("neuCompanyCaseChangeId = " + b.values[0].id);
+    bru.setVar("createdCompanyCaseChangeId", b.values[0].caseChangeId);
+    console.log("createdCompanyCaseChangeId = " + b.values[0].caseChangeId);
   }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

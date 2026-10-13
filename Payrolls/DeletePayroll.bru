@@ -5,7 +5,33 @@ meta {
 }
 
 delete {
-  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{createdPayrollId}}
   body: none
   auth: none
+}
+
+script:pre-request {
+  // its payruns and layers first - DELETE payrolls/{id} fails on them (finding in the backend)
+  const { deletePayrollDependents } = require("./lib/api.js");
+  await deletePayrollDependents(bru, bru.getVar("createdPayrollId"));
+}
+
+script:post-response {
+  // the other payrolls of the run: the test payroll of Payrun periods / WageTypes and the one of CreatePayrollSimple
+  const { deletePayroll } = require("./lib/api.js");
+  if (bru.getVar("previousTestPayrollId")) {
+    await deletePayroll(bru, bru.getVar("previousTestPayrollId"));
+    bru.setVar("previousTestPayrollId", "");
+  }
+  if (bru.getVar("createdSimplePayrollId")) {
+    await deletePayroll(bru, bru.getVar("createdSimplePayrollId"), bru.getVar("createdSimpleDivisionId"));
+    bru.setVar("createdSimplePayrollId", "");
+  }
+  bru.setVar("createdPayrollId", "");
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

@@ -5,7 +5,15 @@ meta {
 }
 
 delete {
-  url: {{baseURL}}tenants/{{tenantId}}/employees/{{employeeId}}/cases/changes/{{neuEmployeeCaseChangeId}}
+  url: {{baseURL}}tenants/{{tenantId}}/employees/{{employeeId}}/cases/changes/{{createdEmployeeCaseChangeId}}
   body: none
   auth: none
+}
+
+script:pre-request {
+  // no request of the collection creates an employee case change yet - nothing to delete
+  if (!bru.getVar("createdEmployeeCaseChangeId")) {
+    console.log("skipped: no employee case change created by the run");
+    bru.runner.skipRequest();
+  }
 }

@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}:rebaseAccountingStartDate
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{createdPayrollId}}:rebaseAccountingStartDate
   body: json
   auth: none
 }
@@ -14,4 +14,10 @@ body:json {
   {
     "accountingStartDate": "2026-01-01T00:00:00Z"
   }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

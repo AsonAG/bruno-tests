@@ -1,3 +1,6 @@
-# Bruno legt hier Laufzeitdaten ab
+# runtime data of Bruno
 .bruno/
 *.log
+# Bruno CLI and the results of npm test
+node_modules/
+results/

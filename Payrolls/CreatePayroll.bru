@@ -12,7 +12,7 @@ post {
 
 body:json {
   {
-    "name": "BruTest-{{lauf}}",
+    "name": "BruTest-{{runId}}",
     "divisionId": "{{divisionId}}",
     "calendarCalculationMode": "MonthCalendarDay",
     "country": 756,
@@ -21,26 +21,30 @@ body:json {
   }
 }
 
+script:pre-request {
+  // a test payroll of an earlier folder of the run (Payrun periods, WageTypes): DeletePayroll deletes it too
+  if (bru.getVar("createdPayrollId")) {
+    bru.setVar("previousTestPayrollId", bru.getVar("createdPayrollId"));
+  }
+}
+
 script:post-response {
   if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
-    bru.setVar("neuPayrollId", res.getBody().id);
-    console.log("neuPayrollId = " + res.getBody().id);
-
-    // ohne Regulation hat die Payroll weder Cases noch Lohnarten
-    const axios = require("axios");
-    const https = require("https");
-    const agent = new https.Agent({ rejectUnauthorized: false });
-    const basis = (bru.getEnvVar("baseURL") || "").replace(/\/+$/, "");
+    bru.setVar("createdPayrollId", res.getBody().id);
+    console.log("createdPayrollId = " + res.getBody().id);
+    // without regulations the payroll has neither cases nor wage types
+    const { client, assignRegulations } = require("./lib/api.js");
     try {
-      await axios.put(
-        basis + "/tenants/" + bru.getVar("tenantId") + "/payrolls/" + res.getBody().id + "/regulations",
-        { countryRegulation: "CH.Swissdec", industries: [], erp: [],
-          accountingDocument: "AccountingDocument1",
-          accountingData: "CH.AccountingDataKMU" },
-        { httpsAgent: agent, timeout: 180000 });
-      console.log("Regulation CH.Swissdec zugewiesen");
+      await assignRegulations(client(bru), bru.getVar("tenantId"), res.getBody().id);
+      console.log("regulation CH.Swissdec assigned");
     } catch (e) {
-      console.log("Regulation nicht zuweisbar: " + e.message);
+      console.log("regulation could not be assigned: " + e.message);
     }
   }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

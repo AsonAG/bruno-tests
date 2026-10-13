@@ -5,19 +5,25 @@ meta {
 }
 
 put {
-  url: {{baseURL}}tenants/{{tenantId}}/employees/{{neuEmployeeId}}
+  url: {{baseURL}}tenants/{{tenantId}}/employees/{{createdEmployeeId}}
   body: json
   auth: none
 }
 
 body:json {
   {
-    "id": "{{neuEmployeeId}}",
-    "identifier": "brutest-{{lauf}}@example.org",
-    "firstName": "BruGeaendert",
+    "id": "{{createdEmployeeId}}",
+    "identifier": "brutest-{{runId}}@example.org",
+    "firstName": "BruChanged",
     "lastName": "Test",
     "language": "German",
     "divisions": ["{{divisionId}}"],
     "culture": "de-CH"
   }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

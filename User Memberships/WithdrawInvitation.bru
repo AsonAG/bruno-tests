@@ -9,3 +9,9 @@ delete {
   body: none
   auth: none
 }
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
+}

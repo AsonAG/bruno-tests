@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{baseURL}}v2/tenants/{{tenantId}}/payrolls/{{neuPayrollId}}/wagetypes/{{inaktiveLohnart}}:activate
+  url: {{baseURL}}v2/tenants/{{tenantId}}/payrolls/{{createdPayrollId}}/wagetypes/{{inactiveWageType}}:activate
   body: json
   auth: none
 }
@@ -15,18 +15,21 @@ body:json {
 }
 
 script:pre-request {
-  // aktivieren geht nur bei einer noch inaktiven Lohnart, darum zur Laufzeit suchen
-  const axios = require("axios");
-  const https = require("https");
-  const agent = new https.Agent({ rejectUnauthorized: false });
-  const basis = (bru.getEnvVar("baseURL") || "").replace(/\/+$/, "");
-  bru.setVar("inaktiveLohnart", bru.getEnvVar("wageTypeNumber") || 1001);
+  // only a wage type that is not active yet can be activated - looked up at run time
+  const { client } = require("./lib/api.js");
+  bru.setVar("inactiveWageType", bru.getEnvVar("wageTypeNumber") || 1001);
   try {
-    const r = await axios.get(basis + "/v2/tenants/" + bru.getVar("tenantId") +
-      "/payrolls/" + bru.getVar("neuPayrollId") + "/wagetypes",
-      { httpsAgent: agent, timeout: 60000 });
-    const w = (r.data || []).find(x => !x.isActive);
-    if (w) { bru.setVar("inaktiveLohnart", w.wageTypeNumber); }
-    else { console.log("alle Lohnarten sind bereits aktiv"); }
-  } catch (e) { console.log("Lohnarten nicht lesbar: " + e.message); }
+    const wageTypes = await client(bru).get("v2/tenants/" + bru.getVar("tenantId") + "/payrolls/" + bru.getVar("createdPayrollId") + "/wagetypes", 60000);
+    const inactive = (wageTypes || []).find((x) => !x.isActive);
+    if (inactive) { bru.setVar("inactiveWageType", inactive.wageTypeNumber); }
+    else { console.log("all wage types are active already"); }
+  } catch (e) {
+    console.log("wage types could not be read: " + e.message);
+  }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

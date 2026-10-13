@@ -5,16 +5,22 @@ meta {
 }
 
 put {
-  url: {{baseURL}}tenants/{{tenantId}}/webhooks/{{neuWebhookId}}
+  url: {{baseURL}}tenants/{{tenantId}}/webhooks/{{createdWebhookId}}
   body: json
   auth: none
 }
 
 body:json {
   {
-    "id": "{{neuWebhookId}}",
-    "payloadUrl": "https://example.org/bruno-test-geaendert",
+    "id": "{{createdWebhookId}}",
+    "payloadUrl": "https://example.org/bruno-test-changed",
     "events": [],
     "hasSecret": false
   }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

@@ -3,108 +3,127 @@ auth {
 }
 
 script:pre-request {
-  // Loest die Ids einmal pro Lauf vom Server auf. Steuerung ueber die Umgebung:
-  //   baseURL            Adresse der API
-  //   tenantIdentifier   Mandant, gegen den geprueft wird
-  
-  // Die Sperre wird erst GESETZT, wenn alles aufgeloest ist. Sonst sieht ein
-  // parallel gestarteter Request sie bereits und arbeitet mit leeren Ids.
-  if (bru.getVar("__idsAufgeloest")) {
-    return;
-  }
-  if (!bru.getVar("lauf")) {
-    bru.setVar("lauf", String(Date.now()));
-  }
-  
-  const axios = require("axios");
-  // localhost nutzt ein selbst signiertes Zertifikat
-  let agent = null;
-  try {
-    const https = require("https");
-    agent = new https.Agent({ rejectUnauthorized: false });
-  } catch (e) {
-    console.log("https-Modul fehlt - bitte mit --sandbox developer starten");
-  }
-  
-  const basis = (bru.getEnvVar("baseURL") || "https://localhost:44354/api/").replace(/\/+$/, "");
-  const mandant = bru.getEnvVar("tenantIdentifier") || "Muster";
-  
-  async function hole(pfad) {
-    try {
-      const cfg = { timeout: 180000 };
-      if (agent) cfg.httpsAgent = agent;
-      const d = (await axios.get(basis + "/" + pfad, cfg)).data;
-      if (!d) return [];
-      if (Array.isArray(d)) return d;
-      if (Array.isArray(d.items)) return d.items;
-      return [d];
-    } catch (e) {
-      const code = e && e.response ? e.response.status : 0;
-      if (code !== 404) {
-        console.log("konnte " + pfad + " nicht lesen: " + (e && e.message ? e.message : String(e)));
-      }
-      return [];
+  // Resolves the ids once per run from the server. Set in the environment:
+  //   baseURL            address of the API
+  //   tenantIdentifier   tenant the requests run against
+
+  // The flag is set only once everything is resolved - otherwise a request started in parallel would already see it
+  // and run with empty ids.
+  async function resolveIds() {
+    if (!bru.getVar("runId")) {
+      bru.setVar("runId", String(Date.now()));
     }
-  }
-  
-  async function ersteId(pfad) {
-    const l = await hole(pfad);
-    return l.length && l[0].id ? l[0].id : null;
-  }
-  
-  function setze(name, wert) {
-    if (wert) bru.setVar(name, wert);
-  }
-  
-  // Immer der Mandant aus der Umgebung. Der von Tenants angelegte Wegwerf-
-  // Mandant ist leer, der darf hier nicht uebernommen werden.
-  const mandanten = await hole("tenants");
-  const t = mandanten.find(x => x.identifier === mandant) || mandanten[0];
-  if (!t) {
-    console.log("Kein Mandant gefunden - laeuft der Server unter " + basis + " ?");
-    return;
-  }
-  const tid = t.id;
-  setze("tenantId", tid);
-  
-  setze("payrollId", await ersteId(`tenants/${tid}/payrolls?top=1`));
-  setze("divisionId", await ersteId(`tenants/${tid}/divisions?top=1`));
-  setze("employeeId", await ersteId(`tenants/${tid}/employees?top=1`));
-  setze("userId", await ersteId("users?top=1"));
-  setze("webhookId", await ersteId(`tenants/${tid}/webhooks?top=1`));
-  
-  const payrollId = bru.getVar("payrollId");
-  if (payrollId) {
-    setze("payrunPeriodId", await ersteId(`tenants/${tid}/payrolls/${payrollId}/payrunperiods?top=1`));
-    setze("taskId", await ersteId(`tenants/${tid}/payrolls/${payrollId}/tasks?top=1`));
-    const periode = bru.getVar("payrunPeriodId");
-    if (periode) {
-      const basisPer = `tenants/${tid}/payrolls/${payrollId}/payrunperiods/${periode}`;
-      setze("payoutId", await ersteId(`${basisPer}/payouts?top=1`));
-      setze("documentId", await ersteId(`${basisPer}/documents?top=1`));
-      const eintraege = await hole(`${basisPer}/entries?top=1`);
-      if (eintraege.length && eintraege[0].id) {
-        setze("payrunPeriodEntryId", eintraege[0].id);
+
+    const { client, items } = require("./lib/api.js");
+    const api = client(bru);
+    const tenantIdentifier = bru.getEnvVar("tenantIdentifier") || "Muster";
+
+    // a list from the API - empty if it cannot be read (404: nothing there)
+    async function list(path) {
+      try {
+        return items(await api.get(path));
+      } catch (e) {
+        const status = e && e.response ? e.response.status : 0;
+        if (status !== 404) {
+          console.log(`could not read ${path}: ${e && e.message ? e.message : String(e)}`);
+        }
+        return [];
       }
     }
-    setze("reportId", await ersteId(`tenants/${tid}/payrolls/${payrollId}/reports?top=1`));
-  }
-  
-  // Case-Werte: jeder Bereich braucht seinen eigenen
-  const firmenWerte = await hole(`tenants/${tid}/companycases/changes/values?top=1`);
-  if (firmenWerte.length) {
-    setze("companyCaseChangeId", firmenWerte[0].caseChangeId);
-    setze("caseValueId", firmenWerte[0].id);
-  }
-  const employeeId = bru.getVar("employeeId");
-  if (employeeId) {
-    const mitarbeiterWerte = await hole(`tenants/${tid}/employees/${employeeId}/cases/changes/values?top=1`);
-    if (mitarbeiterWerte.length) {
-      setze("EmployeeCaseChangeId", mitarbeiterWerte[0].caseChangeId);
-      setze("employeeCaseValue", mitarbeiterWerte[0].id);
+    async function firstId(path) {
+      const l = await list(path);
+      return l.length && l[0].id ? l[0].id : null;
     }
+    function setIfFound(name, value) {
+      if (value) bru.setVar(name, value);
+    }
+
+    // Always the tenant of the environment - the throwaway tenant created by Tenants is empty and must not be used here.
+    const tenants = await list("tenants");
+    const tenant = tenants.find((x) => x.identifier === tenantIdentifier) || tenants[0];
+    if (!tenant) {
+      console.log(`no tenant found - is the server running at ${api.base}?`);
+      return;
+    }
+    const tenantId = tenant.id;
+    setIfFound("tenantId", tenantId);
+
+    setIfFound("payrollId", await firstId(`tenants/${tenantId}/payrolls?top=1`));
+    setIfFound("divisionId", await firstId(`tenants/${tenantId}/divisions?top=1`));
+    setIfFound("employeeId", await firstId(`tenants/${tenantId}/employees?top=1`));
+    setIfFound("userId", await firstId("users?top=1"));
+    setIfFound("webhookId", await firstId(`tenants/${tenantId}/webhooks?top=1`));
+
+    const payrollId = bru.getVar("payrollId");
+    if (payrollId) {
+      setIfFound("payrunPeriodId", await firstId(`tenants/${tenantId}/payrolls/${payrollId}/payrunperiods?top=1`));
+      setIfFound("taskId", await firstId(`tenants/${tenantId}/payrolls/${payrollId}/tasks?top=1`));
+      const periodId = bru.getVar("payrunPeriodId");
+      if (periodId) {
+        const periodPath = `tenants/${tenantId}/payrolls/${payrollId}/payrunperiods/${periodId}`;
+        setIfFound("payoutId", await firstId(`${periodPath}/payouts?top=1`));
+        setIfFound("documentId", await firstId(`${periodPath}/documents?top=1`));
+        setIfFound("payrunPeriodEntryId", await firstId(`${periodPath}/entries?top=1`));
+      }
+      setIfFound("reportId", await firstId(`tenants/${tenantId}/payrolls/${payrollId}/reports?top=1`));
+    }
+
+    // case values: company and employee each need their own
+    const companyValues = await list(`tenants/${tenantId}/companycases/changes/values?top=1`);
+    if (companyValues.length) {
+      setIfFound("companyCaseChangeId", companyValues[0].caseChangeId);
+      setIfFound("caseValueId", companyValues[0].id);
+    }
+    const employeeId = bru.getVar("employeeId");
+    if (employeeId) {
+      const employeeValues = await list(`tenants/${tenantId}/employees/${employeeId}/cases/changes/values?top=1`);
+      if (employeeValues.length) {
+        setIfFound("employeeCaseChangeId", employeeValues[0].caseChangeId);
+        setIfFound("employeeCaseValueId", employeeValues[0].id);
+      }
+    }
+
+    bru.setVar("__idsResolved", true);
+    console.log(`ids resolved for tenant ${tenantId}`);
+  }
+  if (!bru.getVar("__idsResolved")) {
+    await resolveIds();
   }
   
-  bru.setVar("__idsAufgeloest", true);
-  console.log("Ids aufgeloest fuer Mandant " + tid);
+  // A request for an object the database does not have (no payout, document, task... in the tenant) is skipped - with
+  // the placeholder id from the environment the server would answer 500 instead of 404 (finding in the backend).
+  const RESOLVED = ["tenantId", "payrollId", "divisionId", "employeeId", "userId", "webhookId", "payrunPeriodId", "taskId", "payoutId",
+    "documentId", "payrunPeriodEntryId", "reportId", "companyCaseChangeId", "caseValueId", "employeeCaseChangeId", "employeeCaseValueId",
+    "attachmentId", "employeeCaseDocumentId"];
+  const EMPTY_ID = "00000000-0000-0000-0000-000000000000";
+  // the URL with its variables: as written ({{taskId}}) or already filled in
+  const url = String(req.getUrl());
+  const used = [...url.matchAll(/\{\{(\w+)\}\}/g)].map((m) => m[1]).filter((name) => RESOLVED.includes(name));
+  const missing = used.filter((name) => {
+    const value = bru.getVar(name) || bru.getEnvVar(name);
+    return !value || value === EMPTY_ID;
+  });
+  if (missing.length || url.includes(EMPTY_ID)) {
+    console.log(`skipped: ${missing.length ? `no ${missing.join(", ")}` : "an id of the request"} in the database`);
+    bru.runner.skipRequest();
+  }
+}
+
+tests {
+  // every request: the server must not fail - a 404 for an object the database does not have is fine, a 5xx is not
+  test("no server error", function () {
+    expect(res.getStatus()).to.be.below(500);
+  });
+}
+
+docs {
+  # Ason Payroll Integration API - Bruno tests
+
+  One request per endpoint of the Integration API (/swagger/Integration/swagger.json), one folder per tag.
+
+  The environment `api` only needs the address of the API and the tenant; the collection resolves all other ids
+  from the server on the first request. Requests that create an object remember its id, the matching update and
+  delete use exactly that one - after a full run the database is as before.
+
+  Run everything: `npm test` (see README.md).
 }

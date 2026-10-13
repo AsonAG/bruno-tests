@@ -5,7 +5,13 @@ meta {
 }
 
 delete {
-  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/tasks/{{neuTaskId}}/attributes/{{attributeName}}
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/tasks/{{createdTaskId}}/attributes/{{attributeName}}
   body: none
   auth: none
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

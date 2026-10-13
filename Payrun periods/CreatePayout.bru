@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}/payrunperiods/{{testPeriodeId}}/payouts
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{createdPayrollId}}/payrunperiods/{{testPeriodId}}/payouts
   body: json
   auth: none
 }
@@ -19,23 +19,20 @@ body:json {
 }
 
 script:pre-request {
-  // die eigene Periode der Test-Payroll holen, damit nichts an der echten Lohnperiode geaendert wird
-  const axios = require("axios");
-  const https = require("https");
-  const agent = new https.Agent({ rejectUnauthorized: false });
-  const basis = (bru.getEnvVar("baseURL") || "").replace(/\/+$/, "");
-  try {
-    const r = await axios.get(basis + "/tenants/" + bru.getVar("tenantId") +
-      "/payrolls/" + bru.getVar("neuPayrollId") + "/payrunperiods?top=1",
-      { httpsAgent: agent, timeout: 60000 });
-    const l = r.data && r.data.items ? r.data.items : r.data;
-    if (l && l.length) { bru.setVar("testPeriodeId", l[0].id); }
-  } catch (e) { console.log("Testperiode nicht lesbar: " + e.message); }
+  // the period of the test payroll - so nothing changes on a real pay period
+  const { ensureTestPayroll, loadTestPeriod } = require("./lib/api.js");
+  await ensureTestPayroll(bru);
+  await loadTestPeriod(bru);
 }
 
 script:post-response {
   if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
-    bru.setVar("neuPayoutId", res.getBody().id);
-    console.log("neuPayoutId = " + res.getBody().id);
+    bru.setVar("createdPayoutId", res.getBody().id);
+    console.log("createdPayoutId = " + res.getBody().id);
   }
+}
+
+docs {
+  The test payroll never ran a payrun, so its period has no entries to pay out: the API answers
+  400 "Payout without entries". With a tenant that ran a payrun the payout is created and CancelPayout cancels it.
 }

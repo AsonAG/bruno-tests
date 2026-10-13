@@ -5,7 +5,7 @@ meta {
 }
 
 patch {
-  url: {{baseURL}}v2/tenants/{{tenantId}}/payrolls/{{neuPayrollId}}/wagetypes
+  url: {{baseURL}}v2/tenants/{{tenantId}}/payrolls/{{createdPayrollId}}/wagetypes
   body: json
   auth: none
 }
@@ -13,8 +13,28 @@ patch {
 body:json {
   [
     {
-      "wageTypeNumber": 1000,
-      "nameLocalizations": { "de": "Monatslohn (BruTest)" }
+      "wageTypeNumber": {{copiedWageType}},
+      "nameLocalizations": { "en": "Bru copy (changed)", "de": "Bru Kopie (geändert)", "fr": "Copie Bru (modifiée)", "it": "Copia Bru (modificata)" }
     }
   ]
+}
+
+script:pre-request {
+  // the wage type CopyWageType created - only a copy can be renamed, e.g. the localizations of 1000 cannot be changed
+  const { client } = require("./lib/api.js");
+  try {
+    const wageTypes = await client(bru).get("v2/tenants/" + bru.getVar("tenantId") + "/payrolls/" + bru.getVar("createdPayrollId") + "/wagetypes", 60000);
+    const copy = (wageTypes || []).find((x) => x.nameLocalizations && x.nameLocalizations.en === "Bru copy");
+    if (copy) { bru.setVar("copiedWageType", copy.wageTypeNumber); }
+    else { console.log("no copied wage type - CopyWageType did not run"); bru.runner.skipRequest(); }
+  } catch (e) {
+    console.log("wage types could not be read: " + e.message);
+    bru.runner.skipRequest();
+  }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

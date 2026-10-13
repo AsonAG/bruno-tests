@@ -13,7 +13,7 @@ post {
 body:json {
   {
     "tenantId": "{{tenantId}}",
-    "userId": "{{mitgliedUserId}}",
+    "userId": "{{memberUserId}}",
     "firstName": "Bru",
     "lastName": "Test",
     "role": { "$type": "Admin" }
@@ -21,27 +21,28 @@ body:json {
 }
 
 script:pre-request {
-  // die Mitgliedschaft braucht einen eigenen Benutzer; der Ordner Users laeuft erst spaeter
-  const axios = require("axios");
-  const https = require("https");
-  const agent = new https.Agent({ rejectUnauthorized: false });
-  const basis = (bru.getEnvVar("baseURL") || "").replace(/\/+$/, "");
+  // the membership needs a user of its own
+  const { client } = require("./lib/api.js");
   try {
-    const r = await axios.post(basis + "/users",
-      { identifier: "brumember-" + bru.getVar("lauf") + "@example.org",
-        firstName: "Bru", lastName: "Member", language: "German", culture: "de-CH" },
-      { httpsAgent: agent, timeout: 60000 });
-    bru.setVar("mitgliedUserId", r.data.id);
-    bru.setVar("mitgliedUserId", r.data.id);
+    const user = await client(bru).post("users",
+      { identifier: "brumember-" + bru.getVar("runId") + "@example.org",
+        firstName: "Bru", lastName: "Member", language: "German", culture: "de-CH" }, 60000);
+    bru.setVar("memberUserId", user.id);
   } catch (e) {
-    console.log("Benutzer fuer Mitgliedschaft nicht anlegbar: " + e.message);
-    bru.setVar("mitgliedUserId", bru.getVar("userId"));
+    console.log("user for the membership could not be created: " + e.message);
+    bru.setVar("memberUserId", bru.getVar("userId"));
   }
 }
 
 script:post-response {
   if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
-    bru.setVar("neuMembershipId", res.getBody().id);
-    console.log("neuMembershipId = " + res.getBody().id);
+    bru.setVar("createdMembershipId", res.getBody().id);
+    console.log("createdMembershipId = " + res.getBody().id);
   }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

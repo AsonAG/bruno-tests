@@ -5,7 +5,13 @@ meta {
 }
 
 delete {
-  url: {{baseURL}}tenants/{{tenantId}}/webhooks/{{neuWebhookId}}
+  url: {{baseURL}}tenants/{{tenantId}}/webhooks/{{createdWebhookId}}
   body: none
   auth: none
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

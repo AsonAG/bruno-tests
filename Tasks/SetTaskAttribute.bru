@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/tasks/{{neuTaskId}}/attributes/{{attributeName}}
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{payrollId}}/tasks/{{createdTaskId}}/attributes/{{attributeName}}
   body: text
   auth: none
 }
@@ -16,4 +16,10 @@ headers {
 
 body:text {
   "123"
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

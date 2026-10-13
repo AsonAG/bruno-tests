@@ -5,7 +5,7 @@ meta {
 }
 
 put {
-  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}/regulations
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{createdPayrollId}}/regulations
   body: json
   auth: none
 }
@@ -18,4 +18,10 @@ body:json {
     "accountingDocument": "AccountingDocument1",
     "accountingData": "CH.AccountingDataKMU"
   }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

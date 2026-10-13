@@ -12,16 +12,22 @@ post {
 
 body:json {
   {
-    "name": "BruTest-{{lauf}}",
+    "name": "BruTest-{{runId}}",
     "category": "Test",
-    "instruction": "Von der Bruno-Sammlung angelegt",
+    "instruction": "Created by the Bruno collection",
     "scheduled": "2026-01-01T00:00:00Z"
   }
 }
 
 script:post-response {
   if (res.getStatus() < 300 && res.getBody() && res.getBody().id) {
-    bru.setVar("neuTaskId", res.getBody().id);
-    console.log("neuTaskId = " + res.getBody().id);
+    bru.setVar("createdTaskId", res.getBody().id);
+    console.log("createdTaskId = " + res.getBody().id);
   }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

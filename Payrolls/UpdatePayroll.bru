@@ -5,19 +5,25 @@ meta {
 }
 
 put {
-  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{neuPayrollId}}
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{createdPayrollId}}
   body: json
   auth: none
 }
 
 body:json {
   {
-    "id": "{{neuPayrollId}}",
-    "name": "BruTest-{{lauf}}-geaendert",
+    "id": "{{createdPayrollId}}",
+    "name": "BruTest-{{runId}}-changed",
     "divisionId": "{{divisionId}}",
     "calendarCalculationMode": "MonthCalendarDay",
     "country": 756,
     "language": "German",
     "accountingStartDate": "2026-01-01T00:00:00Z"
   }
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }

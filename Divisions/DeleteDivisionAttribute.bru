@@ -5,7 +5,13 @@ meta {
 }
 
 delete {
-  url: {{baseURL}}tenants/{{tenantId}}/divisions/{{neuDivisionId}}/attributes/{{attributeName}}
+  url: {{baseURL}}tenants/{{tenantId}}/divisions/{{createdDivisionId}}/attributes/{{attributeName}}
   body: none
   auth: none
+}
+
+tests {
+  test("succeeds", function () {
+    expect(res.getStatus()).to.be.within(200, 299);
+  });
 }
