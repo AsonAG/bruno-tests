@@ -73,7 +73,14 @@ script:pre-request {
         const periodPath = `tenants/${tenantId}/payrolls/${payrollId}/payrunperiods/${periodId}`;
         setIfFound("payoutId", await firstId(`${periodPath}/payouts?top=1`));
         setIfFound("documentId", await firstId(`${periodPath}/documents?top=1`));
-        setIfFound("payrunPeriodEntryId", await firstId(`${periodPath}/entries?top=1`));
+        // the entries are part of the period
+        try {
+          const period = await api.get(periodPath);
+          const entries = period && Array.isArray(period.entries) ? period.entries : [];
+          if (entries.length && entries[0].id) setIfFound("payrunPeriodEntryId", entries[0].id);
+        } catch (e) {
+          console.log(`could not read ${periodPath}: ${e && e.message ? e.message : String(e)}`);
+        }
       }
       setIfFound("reportId", await firstId(`tenants/${tenantId}/payrolls/${payrollId}/reports?top=1`));
     }
@@ -92,6 +99,10 @@ script:pre-request {
         setIfFound("employeeCaseValueId", employeeValues[0].id);
       }
     }
+
+    // the test division and test payroll of the tenant (created once, reused by every run)
+    const { ensureTestPayroll } = require("./lib/api.js");
+    await ensureTestPayroll(bru);
 
     bru.setVar("__idsResolved", true);
     console.log(`ids resolved for tenant ${tenantId}`);

@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{createdPayrollId}}/payrunperiods/{{testPeriodId}}/payouts
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{testPayrollId}}/payrunperiods/{{testPeriodId}}/payouts
   body: json
   auth: inherit
 }
@@ -20,8 +20,7 @@ body:json {
 
 script:pre-request {
   // the period of the test payroll - so nothing changes on a real pay period
-  const { ensureTestPayroll, loadTestPeriod } = require("./lib/api.js");
-  await ensureTestPayroll(bru);
+  const { loadTestPeriod } = require("./lib/api.js");
   await loadTestPeriod(bru);
 }
 
@@ -32,7 +31,15 @@ script:post-response {
   }
 }
 
+tests {
+  // the test payroll never ran a payrun: its period has no entries to pay out
+  test("period without payrun: 400 Payout without entries", function () {
+    expect(res.getStatus()).to.equal(400);
+    expect(JSON.stringify(res.getBody())).to.contain("Payout without entries");
+  });
+}
+
 docs {
   The test payroll never ran a payrun, so its period has no entries to pay out: the API answers
-  400 "Payout without entries". With a tenant that ran a payrun the payout is created and CancelPayout cancels it.
+  400 "Payout without entries" - the test checks exactly that. CancelPayout is skipped then.
 }

@@ -1,7 +1,8 @@
 # Ason Payroll Integration API - Bruno tests
 
-A [Bruno](https://www.usebruno.com/) collection with one request per endpoint of the Integration API
-(`/swagger/Integration/swagger.json`), one folder per tag of the specification.
+A [Bruno](https://www.usebruno.com/) collection with one request per endpoint of the API Reference of the docs
+(the Integration API, `/swagger/Integration/swagger.json`), one folder per tag. Only endpoints Ason offers - no request
+and no script uses anything outside the API Reference.
 
 ## Setup
 
@@ -48,20 +49,25 @@ The folders run in an order that respects their dependencies:
 | --- | --- | --- |
 | 1 | Tenants | creates a throwaway tenant, changes and deletes it |
 | 2 | Users | creates a user, changes and deletes it |
-| 3 | User Memberships | membership and invitations of a user of their own |
-| 4 | Divisions | creates a division, sets an attribute, deletes both |
-| 5 | Employees | creates and changes an employee (the API has no delete) |
+| 3 | User Memberships | membership and invitations of a user of their own, removed again |
+| 4 | Divisions | creates and changes a division |
+| 5 | Employees | creates and changes an employee |
 | 6-10 | Employee / Company case values, documents, changes | read the case data of the tenant |
 | 11 | Tasks | creates a task, runs an action, sets an attribute, deletes both |
 | 12 | Webhooks | creates a webhook, changes and deletes it |
 | 13 | Payrun periods | payout, cancel and close on the test payroll |
-| 14 | WageTypes | copy and activate wage types on the test payroll |
-| 15 | Payrolls | creates a payroll, adds a case, changes and deletes it - and the test payroll of 13 and 14 |
-| 16 | Company case changes | deletes the case change added by Payrolls |
+| 14 | WageTypes | copy, activate and rename wage types on the test payroll |
+| 15 | Payrolls | creates a payroll, adds company data, changes it |
+| 16 | Company case changes | reads the case changes |
 
-Every object a request creates gets the name `BruTest-<run>` and its id is remembered; the matching update and
-delete use exactly that id. After a full run the database is as before - except the employee `brutest-<run>@example.org`
-(the API has no delete for employees).
+**Test division and test payroll:** the run works in a division `BruTest` with a payroll `BruTest` - payrolls, company
+data and employees of the run go there, the real divisions and payrolls of the tenant stay as they are. Both are
+created on the first run and reused by every later run.
+
+**What stays after a run:** the API deletes no payrolls, divisions, employees, case values or documents (see the release
+notes of the docs: such data is corrected, not deleted). So every run leaves a division `BruTest-<run>`, the payrolls
+`BruTest-<run>` and `BruTestSimple-<run>` (with the division it creates for itself) and an employee
+`brutest-<run>@example.org`. Tenant, user, membership, invitations, task and webhook of the run are deleted again.
 
 **Assertions:** no request may answer with a server error (5xx). Requests on the objects of the run (create, update,
 delete, set, ...) must succeed (2xx).
@@ -70,14 +76,11 @@ delete, set, ...) must succeed (2xx).
 that never ran a payrun - is skipped, the log says which id is missing. With the placeholder id the server would answer
 500 instead of 404.
 
-
 ## Run one folder
 
 ```
 npm run test:folder -- Divisions
 ```
-
-Payrun periods and WageTypes create their test payroll themselves when they run alone; the next run deletes it.
 
 ## Structure
 
@@ -86,7 +89,7 @@ Payrun periods and WageTypes create their test payroll themselves when they run 
 | `collection.bru` | resolves the ids once per run, the assertion "no server error" for every request |
 | `environments/sandbox.bru`, `production.bru` | address of the API and tenant |
 | `.env` | your access token `ASON_ACCESS_TOKEN` (not committed, see `.env.sample`) |
-| `lib/api.js` | helpers of the scripts: API calls outside the request, the test payroll, the test period |
+| `lib/api.js` | helpers of the scripts: API calls outside the request, the test division, the test payroll, the test period |
 | `<Folder>/*.bru` | one request per endpoint, named like the operation in the specification |
 
 The scripts call the API themselves (axios, with the same token), so the CLI needs `--sandbox developer` (set in
@@ -96,8 +99,6 @@ The scripts call the API themselves (axios, with the same token), so the CLI nee
 
 | Finding | Effect |
 | --- | --- |
-| `EmployeeController` has no DELETE | a created employee stays and blocks deleting its division |
-| `DELETE payrolls/{id}` does not delete the layers and payruns | foreign key error - the collection deletes them first (`lib/api.js`, `DeletePayroll`) |
 | `cases/values/time` and `cases/values/count` of a payroll | 500 "Case value cache is not loaded" |
 | `CreatePayout` on a period without payrun | 400 "Payout without entries" - expected, the test payroll never ran a payrun |
 | `DELETE tenants/{id}` is slow | 33 DELETE statements over JOINs instead of over the TenantId, plus five retries on timeout |

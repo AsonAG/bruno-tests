@@ -13,8 +13,8 @@ The token of the sandbox login in `.env` (Quickstart of the docs: "Copy my sandb
 
 ## 1. What is covered (3 min)
 
-119 of 119 endpoints of the Integration specification. Before, it was 180 of 280 across all specifications,
-59 of them requests to routes that no longer existed.
+110 of 110 endpoints of the API Reference of the docs - and nothing outside it. Before, it was 180 of 280 across
+all specifications, 59 of them requests to routes that no longer existed.
 
 Show the API reference of the docs.
 
@@ -40,8 +40,9 @@ npm test
 ```
 
 All 16 folders in one run, in the order of their dependencies: tenant, user, membership, division, employee, task,
-webhook and payroll are created, changed, given attributes - and deleted again. Every POST remembers the id it
-created, the matching DELETE removes exactly that one. After the run the database is as before.
+webhook and payroll are created and changed; what the API can delete is deleted again. Every POST remembers the id it
+created, the matching DELETE removes exactly that one. Payrolls, divisions and employees stay - the API does not
+delete them (release notes); the run keeps them in its own division BruTest.
 
 Open `results/report.html`: every request with its assertions - no server error for any request, 2xx for every
 request on the objects of the run. Requests for an object the tenant does not have are
@@ -60,8 +61,6 @@ says which id is missing.
 
 | Finding | Effect |
 | --- | --- |
-| `EmployeeController` has no DELETE | a created employee stays forever and blocks deleting its division |
-| `DELETE payrolls/{id}` does not delete the layers and payruns | foreign key error - the collection deletes them first |
 | `cases/values/time` and `cases/values/count` of a payroll | 500 "Case value cache is not loaded" |
 | `DELETE tenants/{id}` too slow | 33 DELETE statements over JOINs instead of over the TenantId, plus five retries on timeout |
 | 500 instead of 404 for an unknown id | `ArgumentOutOfRangeException` reaches the client |
@@ -76,5 +75,3 @@ Plus three properties of the API that are not documented:
 
 * Payrun periods, payouts and invitations cannot be created through the Integration API - that takes a tenant
   that ran a payrun once.
-* Creating an employee case change: there is no request for it yet, so `DeleteEmployeeCaseChange` has nothing to
-  delete.

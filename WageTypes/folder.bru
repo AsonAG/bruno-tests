@@ -2,9 +2,3 @@ meta {
   name: WageTypes
   seq: 14
 }
-
-script:pre-request {
-  // the wage types are tested on a test payroll (created once per run)
-  const { ensureTestPayroll } = require("./lib/api.js");
-  await ensureTestPayroll(bru);
-}

@@ -12,7 +12,7 @@ post {
 
 body:json {
   {
-    "divisionId": "{{divisionId}}",
+    "divisionId": "{{testDivisionId}}",
     "reason": "BruTest",
     "start": "2026-01-01T00:00:00Z",
     "case": {
@@ -24,15 +24,6 @@ body:json {
         { "caseName": "{{caseName}}", "caseFieldName": "CH.Swissdec.ContactPersonPhoneNumber", "valueType": "String", "value": "+41 44 000 00 00", "start": "2026-01-01T00:00:00Z" }
       ]
     }
-  }
-}
-
-script:post-response {
-  // remember the created values, so DeleteCompanyCaseChange has something to delete
-  const b = res.getBody();
-  if (res.getStatus() < 300 && b && b.values && b.values.length) {
-    bru.setVar("createdCompanyCaseChangeId", b.values[0].caseChangeId);
-    console.log("createdCompanyCaseChangeId = " + b.values[0].caseChangeId);
   }
 }
 

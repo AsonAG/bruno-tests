@@ -13,18 +13,11 @@ post {
 body:json {
   {
     "name": "BruTest-{{runId}}",
-    "divisionId": "{{divisionId}}",
+    "divisionId": "{{testDivisionId}}",
     "calendarCalculationMode": "MonthCalendarDay",
     "country": 756,
     "language": "German",
     "accountingStartDate": "2026-01-01T00:00:00Z"
-  }
-}
-
-script:pre-request {
-  // a test payroll of an earlier folder of the run (Payrun periods, WageTypes): DeletePayroll deletes it too
-  if (bru.getVar("createdPayrollId")) {
-    bru.setVar("previousTestPayrollId", bru.getVar("createdPayrollId"));
   }
 }
 

@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{createdPayrollId}}/payrunperiods/{{testPeriodId}}/payouts/{{createdPayoutId}}
+  url: {{baseURL}}tenants/{{tenantId}}/payrolls/{{testPayrollId}}/payrunperiods/{{testPeriodId}}/payouts/{{createdPayoutId}}
   body: json
   auth: inherit
 }
@@ -22,7 +22,6 @@ script:pre-request {
     return;
   }
   // the period of the test payroll - so nothing changes on a real pay period
-  const { ensureTestPayroll, loadTestPeriod } = require("./lib/api.js");
-  await ensureTestPayroll(bru);
+  const { loadTestPeriod } = require("./lib/api.js");
   await loadTestPeriod(bru);
 }
