@@ -4,11 +4,11 @@ auth {
 
 auth:oauth2 {
   grant_type: authorization_code
-  callback_url: {{oauthCallbackUrl}}
-  authorization_url: {{oauthAuthority}}/oauth/v2/authorize
-  access_token_url: {{oauthAuthority}}/oauth/v2/token
-  refresh_token_url: {{oauthAuthority}}/oauth/v2/token
-  client_id: {{oauthClientId}}
+  callback_url: http://localhost:3003
+  authorization_url: https://sandbox-uaopni.ch1.zitadel.cloud/oauth/v2/authorize
+  access_token_url: https://sandbox-uaopni.ch1.zitadel.cloud/oauth/v2/token
+  refresh_token_url: https://sandbox-uaopni.ch1.zitadel.cloud/oauth/v2/token
+  client_id: 359257521233419868
   client_secret:
   scope: openid profile email offline_access
   state:
@@ -21,18 +21,6 @@ auth:oauth2 {
   auto_refresh_token: true
 }
 
-vars:pre-request {
-  baseURL: https://sandbox-api.asonpayroll.com/api/
-  tenantIdentifier:
-  oauthAuthority: https://sandbox-uaopni.ch1.zitadel.cloud
-  oauthClientId: 359257521233419868
-  oauthCallbackUrl: http://localhost:3003
-  attributeName: TestAttribute
-  caseName: CH.Swissdec.CompanyData
-  caseFieldName: CH.Swissdec.CompanyFibu
-  lookupName: CH.Swissdec.UvgData
-  wageTypeNumber: 1001
-}
 
 script:pre-request {
   // Login: OAuth2 against the identity provider of the sandbox - on the first request Bruno opens the login window,
@@ -187,9 +175,11 @@ docs {
 
   One request per endpoint of the API Reference of the docs (https://docs.asonpayroll.com/api), one folder per tag.
 
-  **Start:** open this folder in the Bruno app and send "Connect" (or run the whole collection). On the first request
+  **Start:** open this folder in the Bruno app, choose the environment `sandbox` and send "Connect" (or run the whole
+  collection). On the first request
   Bruno opens the login of the sandbox - log in with your sandbox user, Bruno keeps and refreshes the token. The
   collection then uses your first tenant (or the one in `tenantIdentifier`) and resolves every other id from the server.
 
-  Your own instance: choose the environment `production` and set its address, identity provider and client.
+  Your own instance: choose the environment `production` (address of the API) and set the identity provider and the
+  client of your instance in the collection settings (Auth).
 }
