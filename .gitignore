@@ -5,3 +5,11 @@
 node_modules/
 results/
 .env
+/.vs/VSWorkspaceState.json
+/.vs/slnx.sqlite
+/.vs/Bruno/v18/DocumentLayout.json
+/.vs/Bruno/v18/.wsuo
+/.vs/slnx.sqlite-journal
+/.vs/Bruno/FileContentIndex/870f6014-b458-4872-91d1-5871f3f341bc.vsidx
+/.vs/Bruno/FileContentIndex/e30410a1-8116-4522-93d0-2183010cfcfb.vsidx
+/.vs/Bruno/FileContentIndex
